@@ -1,5 +1,6 @@
 body{
     font-family: 'Source Sans Pro', sans-serif;
+    color: black;
  }
  .form-column{
      margin-left: 300px;
@@ -51,5 +52,15 @@ body{
      display: block;
     margin-left: auto;
     margin-right: auto;
+ }
+ .more-button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ }
+ .weConnect{
+     font-size: 50px;
+     color: black;
+     font-family: 'Krona One', sans-serif;
  }
  
