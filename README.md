@@ -6,17 +6,18 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 git clone https://github.com/Collins33/WeConnect.git
 
-cd WeConnect
+-cd WeConnect
 
-virtualenv venv
+-virtualenv venv
 
-source venv/bin/activate
+-source venv/bin/activate
 
-pip install -r requirements.txt
+-pip install -r requirements.txt
 
 ### Prerequisites
 
 -python
+
 -virtual environment
 
 ## Built With
