@@ -3,9 +3,9 @@ body{
     color: black;
  }
  .form-column{
-     margin-left: 300px;
-     margin-right:300px;
-     margin-top: 100px;
+     margin-left: 10%;
+     margin-right:10%;
+     margin-top: 10%;
  }
  .form-button{
      width:100%;
