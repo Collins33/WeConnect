@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Business</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Krona+One" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- the row with the navbar -->
+        <div class="row main-row">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="index.html">WeConnect</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Businesses</a></li>
+                            <li><a href="registration.html">Join us</a></li>
+                            <li><a href="addBusiness.html">Register business</a></li>
+                        </ul>
+                   </div>
+                </nav>
+                <h1 class="text-center weConnect">WeConnect</h1>
+        </div>
+
+        <!-- FORM TO REGISTER A BUSINESS -->
+
+        <div class="row register-business-row">
+            <h1 class="text-center">REGISTER BUSINESS</h1>
+
+            <form>
+                <div class="form-group">
+                    <label>ADD NAME</label>
+                    <input class="form-control" placeholder="add name" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label>ADD CATEGORY</label>
+                    <input class="form-control" placeholder="add category" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label>ADD DESCRIPTION</label>
+                    <input class="form-control" placeholder="add description" type="text" id="description"/>
+                </div>
+                <div class="form-group">
+                    <label>ADD PHONE NUMBER</label>
+                    <input class="form-control" placeholder="add phone number" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label>ADD LOCATION</label>
+                    <input class="form-control" placeholder="add location" type="text"/>
+                </div>
+                <div class="form-group">
+                 <button class="btn btn-default">UPLOAD IMAGE</button>
+                </div>
+                <button class="btn btn-info">REGISTER BUSINESS</button>
+            </form>
+
+        </div>
+
+
+
+        <!-- footer -->
+        <div class="row footer-row">
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <h1 class="text-center" id="footer-logo">WeConnect</h1>
+                    <h2 class="text-center">© 2018 WeConnect 
+                            All rights reserved.</h2>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+    
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <h1 class="text-center">Contact us</h1>
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="enter email" type="email"/>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="enter message" type="text" id="message-field"/>
+                        </div>
+                    </form>
+    
+                </div>
+            </div>
+
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
