@@ -5,7 +5,7 @@ body{
  .form-column{
      margin-left: 30%;
      margin-right:30%;
-     margin-top: 10%;
+     margin-top:3%;
  }
  .form-button{
      width:100%;
@@ -64,12 +64,18 @@ body{
      font-family: 'Source Sans Pro', sans-serif;
  }
  .footer-row{
-     height: 10%;
+     height: 5%;
      background: #50C9C3;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #96DEDA, #50C9C3);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #96DEDA, #50C9C3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
  }
  #message-field{
-     height:70px;
+     height:40px;
  }
- 
+ .register-business-row{
+    margin-left: 20%;
+    margin-right: 20%;
+ }
+ #description{
+     height: 100px;
+ }
