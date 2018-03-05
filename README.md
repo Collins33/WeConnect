@@ -4,7 +4,7 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 ## Getting Started
 
-git clone https://github.com/Collins33/WeConnect.git
+-git clone https://github.com/Collins33/WeConnect.git
 
 -cd WeConnect
 
