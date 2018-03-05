@@ -42,4 +42,12 @@ class StagingConfig(Config):
     DEBUG=True       
 
 
+app_config={
+    #a dictionery with the configuration classes
+    #it is used to export the configuration we specified
+    'development':DevConfig,
+    'testing':TestConfig,
+    'production':ProdConfig,
+    'staging':StagingConfig
+}
 
