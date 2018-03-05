@@ -39,6 +39,24 @@ def create_app(config_name):
                 response.status_code=201
                 return response
 
+
+        else:
+            businesses=Business.get_all_businesses()
+
+            results=[]
+
+            for business in businesses:
+                obj={
+                    'name':business.name,
+                    'description':business.description,
+                    'location':business.location,
+                    'contact':business.contact
+                }
+                results.append(obj)
+            response=jsonify(results)
+            response.status_code=200
+            return response            
+
     return app
 
 
