@@ -4,16 +4,28 @@ class Business(object):
     #empty list containing created businesses
     business_list=[]
 
-    def __init__(self,business_name,business_description,business_location,business_contact):
+    def __init__(self,name,description,location,contact):
         self.id=random.randint(0,100)
-        self.business_name=business_name
-        self.business_description=business_description
-        self.business_location=business_location
-        self.business_contact=business_contact
+        self.name=name
+        self.description=description
+        self.location=location
+        self.contact=location
+        
 
-    def save_business(self):
-        #this method will add an instance of business to the list
-        Business.business_list.append(self)
+    def save_business(self,name,description,location,contact):
+        new_business={}
+
+        new_business["name"]=name
+        new_business["description"]=description
+        new_business["location"]=location
+        new_business["contact"]=contact
+
+
+        Business.business_list.append(new_business)
+        return new_business
+        
+        
+        
    
     # @staticmethod  
     # def delete_business(id):
@@ -31,15 +43,16 @@ class Business(object):
     @classmethod
     def get_all_businesses(cls):
         #it will return the contents of the list
+        print(cls.business_list)
         return cls.business_list
 
-    @classmethod
-    def find_business_id(cls,id):
-        #this method finds a business based on the id
-        #it loops through the business_list and find the business that matches the is
-        for business in cls.business_list:
-            if business.id == id:
-                return business    
+    # @classmethod
+    # def find_business_id(cls,id):
+    #     #this method finds a business based on the id
+    #     #it loops through the business_list and find the business that matches the is
+    #     for business in cls.business_list:
+    #         if business.id == id:
+    #             return business    
 
 
 
