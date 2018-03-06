@@ -3,13 +3,6 @@ import os
 #the configurations are for different environments
 #the environments are Development, Testing, Production and staging
 #all environments inherit from the Config class which contains settings common in all environment
-
-
-
-
-
-
-
 class Config(object):
     #debug tells flask either to run with debugger on or off
     DEBUG=False
@@ -40,6 +33,7 @@ class ProdConfig(Config):
 class StagingConfig(Config): 
     #CONFIGURATION FOR STAGING
     DEBUG=True       
+
 
 app_config={
     #a dictionery with the configuration classes
