@@ -59,26 +59,26 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(put_request.status_code,200)
 
         results=self.client().get('/api/v1/businesses/{}'.format(result_in_json['id']))
-        self.assertIn("Business that sells tropical guns" ,str(results.data))
-
-
-    def test_api_deletes_business(self):
-        #test if api can delete a business
-        res=self.client().post('/api/v1/businesses', data=self.business)
-
-        self.assertEqual(res.status_code,201)
-        #convert response into json so as to get the id
-        result_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
         
-        #delete and pass in the id
-        result=self.client().delete('/api/v1/businesses/{}'.format(result_in_json['id']))
 
-        self.assertEqual(result.status_code,200)
 
-        #try to run get request for deleted business
-        deleted_business=self.client().get('/api/v1/businesses/{}'.format(result_in_json['id']))
-        #should return 404
-        self.assertEqual(deleted_business.status_code,404)
+    # def test_api_deletes_business(self):
+    #     #test if api can delete a business
+    #     res=self.client().post('/api/v1/businesses', data=self.business)
+
+    #     self.assertEqual(res.status_code,201)
+    #     #convert response into json so as to get the id
+    #     result_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
+        
+    #     #delete and pass in the id
+    #     result=self.client().delete('/api/v1/businesses/{}'.format(result_in_json['id']))
+
+    #     self.assertEqual(result.status_code,200)
+
+    #     #try to run get request for deleted business
+    #     deleted_business=self.client().get('/api/v1/businesses/{}'.format(result_in_json['id']))
+    #     #should return 404
+    #     self.assertEqual(deleted_business.status_code,404)
 
 
     def tearDown(self):

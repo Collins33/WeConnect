@@ -75,8 +75,8 @@ def create_app(config_name):
             # get a 404 error
             abort(404)
 
-        if request.method == 'DELETE':
-            Business.delete_business(business.id)
+        # if request.method == 'DELETE':
+        #     Business.delete_business(business.id)
 
         elif request.method == 'PUT':
             #GET VALUES FROM THE REQUEST
@@ -92,16 +92,16 @@ def create_app(config_name):
             business.contact=contact
 
             #create business object
-            business=Business(name=name,description=description,location=location,contact=contact)
+            business=Business(business_name=name,business_description=description,business_location=location,business_contact=contact)
             #save business
             business.save_business()
             #turn object into json
             response=jsonify({
                 'id':business.id,
-                'name':business.name,
-                'description':business.description,
-                'location':business.location,
-                'contact':business.contact
+                'name':business.business_name,
+                'description':business.business_description,
+                'location':business.business_location,
+                'contact':business.business_contact
             })
             #set response status
             response.status_code=200
@@ -110,10 +110,10 @@ def create_app(config_name):
         else:
             response=jsonify({
                 'id':business.id,
-                'name':business.name,
-                'description':business.description,
-                'location':business.location,
-                'contact':business.contact
+                'name':business.business_name,
+                'description':business.business_description,
+                'location':business.business_location,
+                'contact':business.business_contact
             })
             response.status_code = 200
 
