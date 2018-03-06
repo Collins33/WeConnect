@@ -41,5 +41,5 @@ app_config={
     'development':DevConfig,
     'testing':TestConfig,
     'production':ProdConfig,
-    'staging':StagingConfig
+    'staging':StagingConfig}
 
