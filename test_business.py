@@ -13,6 +13,7 @@ class BusinessTestCase(unittest.TestCase):
         self.client=self.app.test_client
         #data to use as test payload
         self.business={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
+        self.testBusiness={"name":"wwe","description":"Wrestling business","location":"nairobi","contact":"071234445"}
 
 
     def test_business_creation(self):
@@ -33,18 +34,19 @@ class BusinessTestCase(unittest.TestCase):
 
         # self.assertIn("Business that sells tropical drinks",str(res.data))
 
-    # def test_api_can_get_business_by_id(self):
-    #     res=self.client().post('/api/v1/businesses', data=self.business)
+    def test_api_can_get_business_by_id(self):
+        res=self.client().post('/api/v1/businesses', data=self.business)
+        res.test=self.client().post('/api/v1/businesses', data=self.testBusiness)
 
-    #     self.assertEqual(res.status_code,201)
-    #     #convert response to json
-    #     result_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
+        self.assertEqual(res.status_code,201)
+        #convert response to json
+        result_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
 
-    #     #make get request and add the id
-    #     get_request=self.client().get('/api/v1/businesses/{}'.format(result_in_json['id']))
+        #make get request and add the id
+        get_request=self.client().get('/api/v1/businesses/{}'.format(result_in_json['id']))
 
-    #     #assert the request status
-    #     self.assertEqual(get_request.status_code,200)
+        #assert the request status
+        self.assertEqual(get_request.status_code,200)
 
     # def test_api_can_edit_business(self):
 
