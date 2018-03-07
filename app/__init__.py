@@ -41,7 +41,7 @@ def create_app(config_name):
             return response  
 
 
-    @app.route('/api/v1/businesses/<int:id>', methods=['GET'])
+    @app.route('/api/v1/businesses/<int:id>', methods=['GET','PUT','DELETE'])
     def business_manipulation(id):
         #get business by id
         business_found= Business.find_business_id(id)
@@ -52,7 +52,43 @@ def create_app(config_name):
         if request.method == "GET":
             response=jsonify({"found":business_found})
             response.status_code=200
-            return response    
+            return response
+
+        elif request.method == "PUT":
+            name = str(request.data.get('name', ''))          
+            description=str(request.data.get('description', ''))
+            location=str(request.data.get('location', ''))
+            contact=str(request.data.get('contact', ''))
+
+            business_found[0]["name"] =name
+            business_found[0]["description"]=description
+            business_found[0]["location"]=location
+            business_found[0]["contact"]=contact
+
+            response=jsonify({"business":business_found})
+            response.status_code=200
+            return response
+
+        else:
+            businesses=Business.get_all_businesses()
+            businesses.remove(business_found[0])
+            response=jsonify({"business":businesses})
+            response.status_code=200
+            return response
+
+                
+
+
+
+
+            # business_found["name"]=request.data.get('name')
+            # business_found["description"]=str(request.data.get('description', business_found["description"]))
+            # business_found["location"]= str(request.data.get('location',business_found["location"]))
+            # business_found["contact"]=str(request.data.get('contact',business_found["contact"]))
+
+            # response=jsonify({"Edit_business":business_found})
+            # response.status_code=200
+            # return response       
 
         # if not business:
         #     #if the business does no exist
