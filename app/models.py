@@ -57,6 +57,19 @@ class User(object):
         else:
             message="password must match the confirm_password"
             return message
+     
+    @classmethod
+    def login(cls,username,password):
+        """logs in user by checking if they exist in the list"""
+        for user in cls.user_list:
+            if user["username"]==username and user["password"]==password:
+                message="you have successfully logged in"
+                return message
+            else:
+                message="username or email is invalid"
+                return message    
+   
+
     @classmethod
     def check_email_exists(cls,email):
         for user in cls.user_list:

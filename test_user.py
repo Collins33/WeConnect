@@ -23,9 +23,11 @@ class UserTestCase(unittest.TestCase):
 
         self.user={"username":"collins","email":"collinsnjau39@gmail.com","password":"123456","confirm_password":"123456"}
 
+        self.login={"username":"collins","password":"123456"}
 
 
-    def test_api_can_create_business(self):
+
+    def test_api_can_create_user(self):
         """ tests if the api can add a user"""
 
         result=self.client().post('/api/v1/auth/register', data=self.user)
@@ -38,6 +40,22 @@ class UserTestCase(unittest.TestCase):
 
     #     res=self.client().post('/api/auth/register', data={"username":"chuck","email":"collinsnjau39@gmail.com","password":"123456","confirm_password":"123456"})
     #     self.assertEqual(result.status_code,409)
+
+    def test_api_can_login_user(self):
+        """user creates account"""
+        result=self.client().post('/api/v1/auth/register', data=self.user)
+        self.assertEqual(result.status_code,200)
+
+        """user logs in"""
+        res=self.client().post('/api/v1/auth/login', data=self.login)
+        self.assertEqual(res.status_code,200)
+
+
+        
+
+    def tearDown(self):
+        User.user_list=[]    
+
 
 
 

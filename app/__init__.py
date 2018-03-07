@@ -20,13 +20,6 @@ def create_app(config_name):
         return response
 
 
-
-
-
-
-
-
-
     #api functionality
     @app.route('/api/v1/auth/register', methods=['POST'])
     def register():
@@ -56,6 +49,20 @@ def create_app(config_name):
                 # response_message=jsonify({"status code":response.status_code})
                 return response
                 return response.status_code
+
+
+    @app.route('/api/v1/auth/login', methods=['POST'])
+    def login():
+        """this end point will log in a user based on username and password"""
+        username = str(request.data.get('username', ''))
+        password=str(request.data.get('password', ''))
+
+        if username and password:
+            message=User.login(username,password)
+            response=jsonify({"message":message,"status_code":201})
+            return response
+            return response.status_code
+
 
 
 
