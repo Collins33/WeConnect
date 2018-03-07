@@ -5,6 +5,7 @@ from flask import request, jsonify, abort
 
 def create_app(config_name):
     from app.models import Business
+    from app.models import User
     #create instance of flaskapi
     app=FlaskAPI(__name__,instance_relative_config=True)
     app.config.from_object(app_config[config_name])
@@ -13,31 +14,29 @@ def create_app(config_name):
 
 
     #api functionality
-    @app.route('/api/v1/businesses', methods=['POST','GET'])
-    def business():
-        if request.method == 'POST':
-            #EXTRACT INFO FROM THE REQUEST
-            name=str(request.data.get('name', '')),
-            description=str(request.data.get('description', '')),
-            location=str(request.data.get('location', '')),
-            contact=str(request.data.get('contact',''))
+    @app.route('/api/auth/register', methods=['POST'])
+    def register():
+        """ 
+        This end point will register a user by getting info from the request
+        """
+        username = str(request.data.get('username', ''))          
+        email=str(request.data.get('email', ''))
+        password=str(request.data.get('password', ''))
+        confirm_password=str(request.data.get('confirm_password', ''))
 
-            if name:
-                #create business object
-                business=Business(name=name,description=description,location=location,contact=contact)
-                #save the business
-                business.save_business()
+        if username and email and password and confirm_password:
+            user=User(username=username,email=email,password=password,confirm_password=confirm_password)
 
-                #turn object into json
-                response=jsonify({
-                    'name':business.name,
-                    'description':business.description,
-                    'location':business.location,
-                    'contact':business.contact
-                })
+            message=user.save_user(username,email,password,confirm_password)
 
-                response.status_code=201
-                return response
+            """turn message into json"""
+            response=jsonify({"message":message})
+            response.status_code=201
+            response_message=jsonify({"status code":response.status_code})
+
+            return response
+            return response.status_code
+    
 
     return app
 
