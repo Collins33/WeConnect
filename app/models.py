@@ -56,7 +56,14 @@ class User(object):
 
         else:
             message="password must match the confirm_password"
-            return message    
+            return message
+    @classmethod
+    def check_email_exists(cls,email):
+        for user in cls.user_list:
+            if user["email"] == email:
+                return False
+            else:
+                return True        
 
 
         

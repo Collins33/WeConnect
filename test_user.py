@@ -28,8 +28,17 @@ class UserTestCase(unittest.TestCase):
     def test_api_can_create_business(self):
         """ tests if the api can add a user"""
 
-        result=self.client().post('/api/auth/register', data=self.user)
-        self.assertEqual(result.status_code,201)
+        result=self.client().post('/api/v1/auth/register', data=self.user)
+        self.assertEqual(result.status_code,200)
+
+
+    # def test_cannot_create_account_with_email_already_exist(self):
+    #     result=self.client().post('/api/auth/register', data=self.user)
+    #     self.assertEqual(result.status_code,200)
+
+    #     res=self.client().post('/api/auth/register', data={"username":"chuck","email":"collinsnjau39@gmail.com","password":"123456","confirm_password":"123456"})
+    #     self.assertEqual(result.status_code,409)
+
 
 
 

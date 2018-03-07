@@ -12,9 +12,23 @@ def create_app(config_name):
     app.config.from_pyfile('config.py')
 
 
+    
+    @app.route(/)
+    def welcome():
+        message="Welcome to WeConnect-API"
+        response=jsonify({"welcome":message})
+        return response
+
+
+
+
+
+
+
+
 
     #api functionality
-    @app.route('/api/auth/register', methods=['POST'])
+    @app.route('/api/v1/auth/register', methods=['POST'])
     def register():
         """ 
         This end point will register a user by getting info from the request
@@ -25,17 +39,35 @@ def create_app(config_name):
         confirm_password=str(request.data.get('confirm_password', ''))
 
         if username and email and password and confirm_password:
-            user=User(username=username,email=email,password=password,confirm_password=confirm_password)
+            value=User.check_email_exists(email)
 
-            message=user.save_user(username,email,password,confirm_password)
+            if  value:
 
-            """turn message into json"""
-            response=jsonify({"message":message})
-            response.status_code=201
-            response_message=jsonify({"status code":response.status_code})
+                response=({"message":"email already exists","status_code":409})
 
-            return response
-            return response.status_code
+                # response.status_code=409     
+                return response
+            else:
+                user=User(username=username,email=email,password=password,confirm_password=confirm_password)
+                message=user.save_user(username,email,password,confirm_password)
+                """turn message into json"""
+                response=jsonify({"message":message,"status_code":201})
+                # response.status_code=201
+                # response_message=jsonify({"status code":response.status_code})
+                return response
+                return response.status_code
+
+
+
+
+
+
+
+
+
+
+
+            
     
 
     return app
