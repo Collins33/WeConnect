@@ -13,7 +13,7 @@ def create_app(config_name):
 
 
     
-    @app.route(/)
+    @app.route("/")
     def welcome():
         message="Welcome to WeConnect-API"
         response=jsonify({"welcome":message})
