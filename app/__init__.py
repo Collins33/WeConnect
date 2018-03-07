@@ -65,6 +65,15 @@ def create_app(config_name):
             return response.status_code
 
 
+    @app.route('/api/v1/auth/logout', methods=["POST"])
+    def logout():
+        if session.get("username") is not None:
+            session.pop("username", None)
+            return jsonify({"message": "Logout successful"})
+        return jsonify({"message": "You are not logged in"})    
+                    
+
+
 
 
 
