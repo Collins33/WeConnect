@@ -54,9 +54,9 @@ class User(object):
             message="successfully registered user"
             return message
 
-        else:
-            message="password must match the confirm_password"
-            return message
+        
+        message="password must match the confirm_password"
+        return message
      
     @classmethod
     def login(cls,username,password):
@@ -65,18 +65,18 @@ class User(object):
             if user["username"]==username and user["password"]==password:
                 message="you have successfully logged in"
                 return message
-            else:
-                message="username or email is invalid"
-                return message    
+            
+            message="username or email is invalid"
+            return message    
    
 
     @classmethod
     def check_email_exists(cls,email):
         for user in cls.user_list:
-            if user["email"] == email:
-                return False
-            else:
-                return True        
+            if user.get("email") == email:
+                return True
+            
+            return False       
 
 
         

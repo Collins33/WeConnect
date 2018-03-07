@@ -34,12 +34,12 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(result.status_code,200)
 
 
-    # def test_cannot_create_account_with_email_already_exist(self):
-    #     result=self.client().post('/api/auth/register', data=self.user)
-    #     self.assertEqual(result.status_code,200)
+    def test_cannot_create_account_with_email_already_exist(self):
+        result=self.client().post('/api/auth/register', data=self.user)
+        self.assertEqual(result.status_code,200)
 
-    #     res=self.client().post('/api/auth/register', data={"username":"chuck","email":"collinsnjau39@gmail.com","password":"123456","confirm_password":"123456"})
-    #     self.assertEqual(result.status_code,409)
+        res=self.client().post('/api/auth/register', data={"username":"chuck","email":"collinsnjau39@gmail.com","password":"123456","confirm_password":"123456"})
+        self.assertEqual(result.status_code,409)
 
     def test_api_can_login_user(self):
         """user creates account"""

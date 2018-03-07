@@ -1,7 +1,7 @@
 from flask_api import FlaskAPI
 
 from instance.config import app_config
-from flask import request, jsonify, abort
+from flask import request, jsonify, abort,session
 
 def create_app(config_name):
     from app.models import Business
@@ -58,6 +58,7 @@ def create_app(config_name):
         password=str(request.data.get('password', ''))
 
         if username and password:
+            session["username"]=username
             message=User.login(username,password)
             response=jsonify({"message":message,"status_code":201})
             return response
