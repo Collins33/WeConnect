@@ -40,10 +40,10 @@ def create_app(config_name):
 
             if  value:
 
-                response=({"message":"email already exists","status_code":409})
-
-                    
+                response=jsonify({"message":"email already exists","status_code":404})
+                response.status_code=404    
                 return response
+                return response.status_code
             else:
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)
                 message=user.save_user(username,email,password,confirm_password)
