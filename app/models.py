@@ -1,10 +1,12 @@
 import random
 
 class Business(object):
-   """class to create instance of business"""
+
+    """class to create instance of business"""
     business_list=[]
 
     def __init__(self,name,description,location,contact):
+        """initilize with id which is the length of the business"""
         self.id=len(Business.business_list)
         self.name=name
         self.description=description
@@ -83,6 +85,23 @@ class User(object):
         
         message="password must match the confirm_password"
         return message
+
+    @staticmethod
+    def validate_password(password):
+        if len(password)< 6:
+            
+            return False
+
+        else:
+            return True
+    # @staticmethod
+    # def validate_email(email):
+    #     if "@" in email and "." in email:
+    #         return True
+    #     else:
+            
+    #         return False        
+
      
     @classmethod
     def login(cls,username,password):
@@ -95,13 +114,13 @@ class User(object):
             message="username or email is invalid"
             return message    
    
-
+   
     @classmethod
     def check_email_exists(cls,email):
         """validates email to avoid two accounts with same user email"""
         for user in cls.user_list:
             if user.get("email") == email:
-                return True
+                return False
             
             return False       
 

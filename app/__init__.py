@@ -36,15 +36,12 @@ def create_app(config_name):
         confirm_password=str(request.data.get('confirm_password', ''))
 
         if username and email and password and confirm_password:
-            value=User.check_email_exists(email)
 
-            if  value:
+            value_email_check=User.check_email_exists(email)
+            # validateEmail=User.validate_email(email)
+            validPassword=User.validate_password(password)
 
-                response=({"message":"email already exists","status_code":409})
-
-                    
-                return response
-            else:
+            if  value_email_check and validPassword:
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)
                 message=user.save_user(username,email,password,confirm_password)
                 """turn message into json"""
@@ -53,6 +50,13 @@ def create_app(config_name):
                 
                 return response
                 return response.status_code
+                
+            else:
+                response=({"message":"Enter valid credential"})
+
+                    
+                return response
+                
 
 
     @app.route('/api/v1/auth/login', methods=['POST'])
