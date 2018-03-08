@@ -37,13 +37,29 @@ def create_app(config_name):
 
         if username and email and password and confirm_password:
             value=User.check_email_exists(email)
+            value_name=User.check_name_exists(username)
+            validate_password=User.validate_password(password)
 
             if  value:
 
-                response=({"message":"email already exists","status_code":409})
-
-                    
+                response=jsonify({"message":"email already exists","status_code":400})
+                response.status_code=400    
                 return response
+                return response.status_code
+
+            elif value_name:
+                response=jsonify({"message":"username already exists","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
+            elif validate_password:
+                response=jsonify({"message":"password must be longer than 6 characters","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
+
             else:
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)
                 message=user.save_user(username,email,password,confirm_password)
@@ -53,6 +69,13 @@ def create_app(config_name):
                 
                 return response
                 return response.status_code
+
+        else:
+            response=jsonify({"message":"enter all details","status_code":400})
+            response.status_code=400
+            return response
+            return response.status_code
+
 
 
     @app.route('/api/v1/auth/login', methods=['POST'])
@@ -64,9 +87,16 @@ def create_app(config_name):
         if username and password:
             session["username"]=username
             message=User.login(username,password)
-            response=jsonify({"message":message,"status_code":201})
+            response=jsonify({"message":message,"status_code":200})
+            return response
+            
+
+        else:
+            response=jsonify({"message":"enter all details","status_code":400})
+            response.status_code=400
             return response
             return response.status_code
+
 
 
     @app.route('/api/v1/auth/logout', methods=["POST"])
@@ -101,17 +131,45 @@ def create_app(config_name):
             location=str(request.data.get('location', ''))
             contact=str(request.data.get('contact', ''))
 
-            if name:
-                """create business object"""
-                business=Business(name=name,description=description,location=location,contact=contact)
-                
-                new_business=business.save_business(name,description,location,contact)
+            if name and description and location and contact:
+                """validate that it is not duplicate"""
+                validateName=Business.check_name_exists(name)
+                validateContact=Business.check_contact_exists(contact)
+                if validateName:
+                    response=jsonify({"message":"Business name already exists","status_code":400})
+                    response.status_code=400    
+                    return response
+                    return response.status_code
+
+                elif validateContact:
+                    response=jsonify({"message":"Business contact already exists","status_code":400})
+                    response.status_code=400  
+                    return response
+                    return response.status_code
 
                 
-                response=jsonify(new_business)
-                response.status_code=201
+                else:
+                    """create business object"""
+                    business=Business(name=name,description=description,location=location,contact=contact)
+                    
+                    new_business=business.save_business(name,description,location,contact)
 
+                    
+                    response=jsonify(new_business)
+                    response.status_code=201
+
+                    return response
+
+            else:
+                response=jsonify({"message":"enter all details","status_code":400})
+                response.status_code=400
                 return response
+                return response.status
+
+
+
+
+
         else:
             Businesses=Business.business_list
             response=jsonify({"Businesses":Businesses})
@@ -128,34 +186,59 @@ def create_app(config_name):
         business_found= Business.find_business_id(id)
 
         if not business_found:
-            abort(404)
+            response=jsonify({"message":"business does not exist","status":404})
 
         if request.method == "GET":
-            response=jsonify({"Business":business_found})
-            response.status_code=200
-            return response
+            if business_found:     
+                response=jsonify({"Business":business_found})
+                response.status_code=200
+                return response
+
+            else:
+                response=jsonify({"message":"business does not exist","status":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
 
         elif request.method == "PUT":
-            name = str(request.data.get('name', ''))          
-            description=str(request.data.get('description', ''))
-            location=str(request.data.get('location', ''))
-            contact=str(request.data.get('contact', ''))
+            if business_found:
 
-            business_found[0]["name"] =name
-            business_found[0]["description"]=description
-            business_found[0]["location"]=location
-            business_found[0]["contact"]=contact
+                name = str(request.data.get('name', ''))          
+                description=str(request.data.get('description', ''))
+                location=str(request.data.get('location', ''))
+                contact=str(request.data.get('contact', ''))
 
-            response=jsonify({"business":business_found})
-            response.status_code=200
-            return response
+                business_found[0]["name"] =name
+                business_found[0]["description"]=description
+                business_found[0]["location"]=location
+                business_found[0]["contact"]=contact
+
+                response=jsonify({"business":business_found})
+                response.status_code=200
+                return response
+
+            else:
+                response=jsonify({"message":"Cannot update business that does not exist","status":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
 
         else:
-            businesses=Business.get_all_businesses()
-            businesses.remove(business_found[0])
-            response=jsonify({"business":businesses})
-            response.status_code=200
-            return response
+            if business_found:
+
+                businesses=Business.get_all_businesses()
+                businesses.remove(business_found[0])
+                response=jsonify({"business":"business successfully deleted","status":200})
+                response.status_code=200
+                return response
+            else:
+                response=jsonify({"message":"Cannot delete business that does not exist","status":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
 
 
     return app

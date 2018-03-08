@@ -6,7 +6,7 @@ class Business(object):
     business_list=[]
 
     def __init__(self,name,description,location,contact):
-        self.id=len(Business.business_list)
+        self.id=len(Business.business_list)+1
         self.name=name
         self.description=description
         self.location=location
@@ -44,6 +44,22 @@ class Business(object):
         business=[business for business in cls.business_list if business['id'] == id]
         print(business)
         return business
+
+
+    @classmethod
+    def check_name_exists(cls,name):
+        for business in cls.business_list:
+            if business.get("name") == name:
+                return True
+            return False
+
+
+    @classmethod
+    def check_contact_exists(cls,contact):
+        for business in cls.business_list:
+            if business.get("contact") == contact:
+                return True
+            return False        
       
       
       
@@ -104,7 +120,23 @@ class User(object):
             if user.get("email") == email:
                 return True
             
-            return False       
+            return False
+
+    @classmethod
+    def check_name_exists(cls,username):
+        """validate username to avoid two accounts with same username"""
+        for user in cls.user_list:
+            if user.get("username") == username:
+                return True
+
+            return False
+    
+    @staticmethod
+    def validate_password(password):
+        if len(password)<6:
+            return True
+
+        return False               
 
 
         

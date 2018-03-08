@@ -1,3 +1,1 @@
-{
-  "test_user.py::UserTestCase::test_cannot_create_account_with_email_already_exist": true
-}
+{}
