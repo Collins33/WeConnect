@@ -51,6 +51,11 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,200)
 
 
+    def test_api_cannot_register_without_all_fields(self):
+        result=self.client().post('/api/v1/auth/register', data={"username":"collins","password":"123456"})
+        self.assertEqual(result.status_code,400)    
+
+
         
 
     def tearDown(self):
