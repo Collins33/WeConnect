@@ -112,6 +112,7 @@ class User(object):
         for user in cls.user_list:
             if user.get("username") == username:
                 return True
+                
             return False           
 
 
