@@ -1,7 +1,8 @@
 import random
 
 class Business(object):
-   """class to create instance of business"""
+
+    """class to create instance of business"""
     business_list=[]
 
     def __init__(self,name,description,location,contact):
