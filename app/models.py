@@ -39,7 +39,7 @@ class User(object):
         """
         this method gets user details as parameters,
         uses them to create a dict and append dict
-        to the user_list
+        to the user_list we created
         """
         new_user={}
 
