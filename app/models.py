@@ -104,7 +104,15 @@ class User(object):
             if user.get("email") == email:
                 return True
             
-            return False       
+            return False
+
+    @classmethod
+    def check_name_exists(cls,username):
+        """validate username to avoid two accounts with same username"""
+        for user in cls.user_list:
+            if user.get("username") == username:
+                return True
+            return False           
 
 
         

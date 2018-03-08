@@ -37,8 +37,9 @@ def create_app(config_name):
 
         if username and email and password and confirm_password:
             value=User.check_email_exists(email)
+            value_name=User.check_name_exists(username)
 
-            if  value:
+            if  value and value_name:
 
                 response=jsonify({"message":"email already exists","status_code":404})
                 response.status_code=404    

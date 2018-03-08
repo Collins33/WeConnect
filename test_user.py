@@ -57,7 +57,15 @@ class UserTestCase(unittest.TestCase):
 
     def test_api_cannot_login_user_with_fields_missing(self):
         result=self.client().post('/api/v1/auth/login',data={"username":"collins"})
-        self.assertEqual(result.status_code,400)        
+        self.assertEqual(result.status_code,400)
+
+    def test_api_cannot_create_account_with_username_exists(self):
+        result=self.client().post('/api/v1/auth/register', data=self.user)
+        self.assertEqual(result.status_code,200)
+
+        res=self.client().post('/api/auth/register', data={"username":"collins","email":"collinsnjau40@gmail.com","password":"123456","confirm_password":"123456"})
+        self.assertEqual(res.status_code,404)
+
 
 
         
