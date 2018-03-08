@@ -56,7 +56,8 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(result.status_code,400)
 
     def test_api_cannot_login_user_with_fields_missing(self):
-        result=self.client().post('/api/v1/auth/login',data={"username":"collins"})        
+        result=self.client().post('/api/v1/auth/login',data={"username":"collins"})
+        self.assertEqual(result.status_code,400)        
 
 
         
