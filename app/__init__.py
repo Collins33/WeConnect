@@ -146,12 +146,19 @@ def create_app(config_name):
         business_found= Business.find_business_id(id)
 
         if not business_found:
-            response=jsonify({"message":"business does not existy","status":404})
+            response=jsonify({"message":"business does not exist","status":404})
 
         if request.method == "GET":
-            response=jsonify({"Business":business_found})
-            response.status_code=200
-            return response
+            if business_found:     
+                response=jsonify({"Business":business_found})
+                response.status_code=200
+                return response
+
+            else:
+                response=jsonify({"message":"business does not exist","status":404})
+                response.status_code=404
+                return response
+
 
         elif request.method == "PUT":
             name = str(request.data.get('name', ''))          

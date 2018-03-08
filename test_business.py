@@ -81,6 +81,7 @@ class BusinessTestCase(unittest.TestCase):
         # self.assertEqual(result.status_code,200)
         #try to run get request for deleted business
         deleted_business=self.client().get('/api/v1/businesses/{}'.format(result_in_json['id']))
+        
         #should return 404
         self.assertEqual(deleted_business.status_code,404)
 
