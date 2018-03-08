@@ -213,7 +213,7 @@ def create_app(config_name):
 
                 businesses=Business.get_all_businesses()
                 businesses.remove(business_found[0])
-                response=jsonify({"business":businesses})
+                response=jsonify({"business":"business successfully deleted","status":200})
                 response.status_code=200
                 return response
             else:
