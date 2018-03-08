@@ -108,15 +108,11 @@ def create_app(config_name):
                 response.status_code=201
 
                 return response
-            else:
-                user=User(username=username,email=email,password=password,confirm_password=confirm_password)
-                message=user.save_user(username,email,password,confirm_password)
-                """turn message into json"""
-                response=jsonify({"message":message,"status_code":201})
-                # response.status_code=201
-                # response_message=jsonify({"status code":response.status_code})
-                return response
-                return response.status_code
+        else:
+            Businesses=Business.business_list
+            response=jsonify({"Businesses":Businesses})
+            response.status_code=200
+            return response
 
                 
 
