@@ -88,7 +88,14 @@ class BusinessTestCase(unittest.TestCase):
 
     def test_api_cannot_register_without_all_fields(self):
         res=self.client().post('/api/v1/businesses', data={"name":"tropics","contact":"09385789"})
-        self.assertEqual(res.status_code,400)   
+        self.assertEqual(res.status_code,400)
+
+    def test_api_cannot_get_nonexistent_by_id(self):
+        res=self.client().post('/api/v1/businesses', data=self.business)
+        self.assertEqual(res.status,'201 CREATED' )
+
+        result=self.client().get('/api/v1/businesses/10')
+        self.assertEqual(result.status_code,404)       
 
 
     def tearDown(self):
