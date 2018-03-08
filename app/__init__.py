@@ -38,6 +38,7 @@ def create_app(config_name):
         if username and email and password and confirm_password:
             value=User.check_email_exists(email)
             value_name=User.check_name_exists(username)
+            validate_password=User.validate_password(password)
 
             if  value:
 
@@ -51,6 +52,13 @@ def create_app(config_name):
                 response.status_code=404    
                 return response
                 return response.status_code
+
+            elif validate_password:
+                response=jsonify({"message":"password must be longer than 6 characters","status_code":404})
+                response.status_code=404    
+                return response
+                return response.status_code
+
 
             else:
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)

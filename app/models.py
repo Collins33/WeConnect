@@ -112,8 +112,15 @@ class User(object):
         for user in cls.user_list:
             if user.get("username") == username:
                 return True
-                
-            return False           
+
+            return False
+    
+    @staticmethod
+    def validate_password(password):
+        if len(password)<6:
+            return True
+
+        return False               
 
 
         
