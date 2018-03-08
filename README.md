@@ -14,30 +14,26 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 -pip install -r requirements.txt
 
+## Running tests
+- pytest
+
 ### Prerequisites
 
 -python
 
 -virtual environment
 
+## Running it on machine
+-export FLASK_APP="run.py"
+
+-export APP_SETTINGS="development"
+
+-export SECRET="some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING"
+
+-flask run
+
 ## Built With
 
 * [Flask](http://flask.pocoo.org/) - The web framework used
 * [Pip](https://pypi.python.org/pypi/pip) - Dependency Management
-* [HTML/CSS/BOOTSTRAP](https://getbootstrap.com/)-Front-end 
-
-
- 
-
-## Authors
-
-* **COLLINS NJAU MURU** 
-
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-
-
+* [HTML/CSS/BOOTSTRAP](https://getbootstrap.com/)-Front-end
