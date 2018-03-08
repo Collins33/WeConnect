@@ -95,7 +95,26 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(res.status,'201 CREATED' )
 
         result=self.client().get('/api/v1/businesses/10')
-        self.assertEqual(result.status_code,404)       
+        self.assertEqual(result.status_code,404)
+
+    def test_api_cannot_delete_nonexistent_business(self):
+        res=self.client().post('/api/v1/businesses', data=self.business)
+        self.assertEqual(res.status_code,201)
+
+        #try to edit first business
+        put_request=self.client().put('/api/v1/businesses/1', data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
+
+        self.assertEqual(put_request.status_code,200)
+        
+        #try to edit non existent business
+        put_request=self.client().put('/api/v1/businesses/10', data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
+
+        self.assertEqual(put_request.status_code,404)
+
+
+
+
+
 
 
     def tearDown(self):
