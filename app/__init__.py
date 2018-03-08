@@ -45,6 +45,28 @@ def create_app(config_name):
 
                 # response.status_code=409     
 
+    @app.route('/api/v1/auth/login', methods=['POST'])
+    def login():
+        """this end point will log in a user based on username and password"""
+        username = str(request.data.get('username', ''))
+        password=str(request.data.get('password', ''))
+
+        if username and password:
+            session["username"]=username
+            message=User.login(username,password)
+            response=jsonify({"message":message,"status_code":201})
+            return response
+            return response.status_code
+
+
+    @app.route('/api/v1/auth/logout', methods=["POST"])
+    def logout():
+        if session.get("username") is not None:
+            session.pop("username", None)
+            return jsonify({"message": "Logout successful"})
+        return jsonify({"message": "You are not logged in"})    
+                    
+ 
     @app.route('/api/v1/businesses', methods=['POST','GET'])
     def business():
         if request.method == 'POST':
@@ -75,30 +97,7 @@ def create_app(config_name):
                 return response
                 return response.status_code
 
-
-    @app.route('/api/v1/auth/login', methods=['POST'])
-    def login():
-        """this end point will log in a user based on username and password"""
-        username = str(request.data.get('username', ''))
-        password=str(request.data.get('password', ''))
-
-        if username and password:
-            session["username"]=username
-            message=User.login(username,password)
-            response=jsonify({"message":message,"status_code":201})
-            return response
-            return response.status_code
-
-
-    @app.route('/api/v1/auth/logout', methods=["POST"])
-    def logout():
-        if session.get("username") is not None:
-            session.pop("username", None)
-            return jsonify({"message": "Logout successful"})
-        return jsonify({"message": "You are not logged in"})    
-                    
- 
-
+                
 
     @app.route('/api/v1/businesses/<int:id>', methods=['GET','PUT','DELETE'])
     def business_manipulation(id):
