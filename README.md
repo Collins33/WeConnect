@@ -2,6 +2,9 @@
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with
 
+[![Build Status](https://travis-ci.org/Collins33/WeConnect.svg?branch=master)](https://travis-ci.org/Collins33/WeConnect)
+
+
 ## Getting Started
 
 -git clone https://github.com/Collins33/WeConnect.git
@@ -36,4 +39,20 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 * [Flask](http://flask.pocoo.org/) - The web framework used
 * [Pip](https://pypi.python.org/pypi/pip) - Dependency Management
-* [HTML/CSS/BOOTSTRAP](https://getbootstrap.com/)-Front-end
+* [HTML/CSS/BOOTSTRAP](https://getbootstrap.com/)-Front-end 
+
+
+ 
+
+## Authors
+
+* **COLLINS NJAU MURU** 
+
+
+
+## License
+
+This project is licensed under the MIT License ]
+
+
+
