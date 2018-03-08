@@ -53,7 +53,10 @@ class UserTestCase(unittest.TestCase):
 
     def test_api_cannot_register_without_all_fields(self):
         result=self.client().post('/api/v1/auth/register', data={"username":"collins","password":"123456"})
-        self.assertEqual(result.status_code,400)    
+        self.assertEqual(result.status_code,400)
+
+    def test_api_cannot_login_user_with_fields_missing(self):
+        result=self.client().post('/api/v1/auth/login',data={"username":"collins"})        
 
 
         

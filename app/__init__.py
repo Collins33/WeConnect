@@ -77,7 +77,10 @@ def create_app(config_name):
 
         else:
             response=jsonify({"message":"enter all details","status_code":400})
-            return response    
+            response.status_code=400
+            return response
+            return response.status_code
+
 
 
     @app.route('/api/v1/auth/logout', methods=["POST"])
