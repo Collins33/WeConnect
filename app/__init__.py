@@ -12,7 +12,7 @@ def create_app(config_name):
 
 
 
-    #api functionality
+    #api functionality for businesses
     @app.route('/api/v1/businesses', methods=['POST','GET'])
     def business():
         if request.method == 'POST':
