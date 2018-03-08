@@ -25,7 +25,6 @@ def create_app(config_name):
 
 
     #api functionality
-
     @app.route('/api/v1/auth/register', methods=['POST'])
     def register():
         """ 
@@ -44,6 +43,17 @@ def create_app(config_name):
                 response=({"message":"email already exists","status_code":409})
 
                 # response.status_code=409     
+                return response
+            else:
+                user=User(username=username,email=email,password=password,confirm_password=confirm_password)
+                message=user.save_user(username,email,password,confirm_password)
+                """turn message into json"""
+                response=jsonify({"message":message,"status_code":201})
+                # response.status_code=201
+                # response_message=jsonify({"status code":response.status_code})
+                return response
+                return response.status_code
+
 
     @app.route('/api/v1/auth/login', methods=['POST'])
     def login():
@@ -65,6 +75,17 @@ def create_app(config_name):
             session.pop("username", None)
             return jsonify({"message": "Logout successful"})
         return jsonify({"message": "You are not logged in"})    
+                    
+
+
+
+
+     
+
+
+
+
+     
                     
  
     @app.route('/api/v1/businesses', methods=['POST','GET'])
