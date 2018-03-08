@@ -14,11 +14,21 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 -pip install -r requirements.txt
 
+## Running tests
+- pytest
+
 ### Prerequisites
 
 -python
 
 -virtual environment
+
+## Export the following before running on terminal
+-export FLASK_APP="run.py"
+
+-export APP_SETTINGS="development"
+
+-export SECRET="some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING"
 
 ## Built With
 
@@ -37,7 +47,7 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md]
+This project is licensed under the MIT License ]
 
 
 
