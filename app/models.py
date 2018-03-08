@@ -44,6 +44,22 @@ class Business(object):
         business=[business for business in cls.business_list if business['id'] == id]
         print(business)
         return business
+
+
+    @classmethod
+    def check_name_exists(cls,name):
+        for business in cls.business_list:
+            if business.get("name") == name:
+                return True
+            return False
+
+
+    @classmethod
+    def check_contact_exists(cls,contact):
+        for business in cls.business_list:
+            if business.get("contact") == contact:
+                return True
+            return False        
       
       
       

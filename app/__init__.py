@@ -132,16 +132,25 @@ def create_app(config_name):
             contact=str(request.data.get('contact', ''))
 
             if name and description and location and contact:
-                """create business object"""
-                business=Business(name=name,description=description,location=location,contact=contact)
+                """validate that it is not duplicate"""
+                validateName=Business.check_name_exists(name)
+                if validateName:
+                    response=jsonify({"message":"Business name already exists","status_code":404})
+                    response.status_code=404    
+                    return response
+                    return response.status_code
                 
-                new_business=business.save_business(name,description,location,contact)
+                else:
+                    """create business object"""
+                    business=Business(name=name,description=description,location=location,contact=contact)
+                    
+                    new_business=business.save_business(name,description,location,contact)
 
-                
-                response=jsonify(new_business)
-                response.status_code=201
+                    
+                    response=jsonify(new_business)
+                    response.status_code=201
 
-                return response
+                    return response
 
             else:
                 response=jsonify({"message":"enter all details","status_code":400})
