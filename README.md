@@ -20,6 +20,13 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 -virtual environment
 
+##Export the following before running on terminal
+-export FLASK_APP="run.py"
+
+-export APP_SETTINGS="development"
+
+-export SECRET="some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING"
+
 ## Built With
 
 * [Flask](http://flask.pocoo.org/) - The web framework used
