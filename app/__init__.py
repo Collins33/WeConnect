@@ -42,15 +42,15 @@ def create_app(config_name):
 
                 response=({"message":"email already exists","status_code":409})
 
-                # response.status_code=409     
+                    
                 return response
             else:
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)
                 message=user.save_user(username,email,password,confirm_password)
                 """turn message into json"""
                 response=jsonify({"message":message,"status_code":201})
-                # response.status_code=201
-                # response_message=jsonify({"status code":response.status_code})
+                """response.status_code=201"""
+                
                 return response
                 return response.status_code
 
@@ -71,6 +71,9 @@ def create_app(config_name):
 
     @app.route('/api/v1/auth/logout', methods=["POST"])
     def logout():
+        """this endpoint will logout the user
+        by removing them from the session"""
+
         if session.get("username") is not None:
             session.pop("username", None)
             return jsonify({"message": "Logout successful"})
@@ -91,19 +94,20 @@ def create_app(config_name):
     @app.route('/api/v1/businesses', methods=['POST','GET'])
     def business():
         if request.method == 'POST':
-            #EXTRACT INFO FROM THE REQUEST
+            """gets data from request and save business"""
+
             name = str(request.data.get('name', ''))          
             description=str(request.data.get('description', ''))
             location=str(request.data.get('location', ''))
             contact=str(request.data.get('contact', ''))
 
             if name:
-                #create business object
+                """create business object"""
                 business=Business(name=name,description=description,location=location,contact=contact)
-                #save the business
+                
                 new_business=business.save_business(name,description,location,contact)
 
-                #turn object into json
+                
                 response=jsonify(new_business)
                 response.status_code=201
 
@@ -118,7 +122,9 @@ def create_app(config_name):
 
     @app.route('/api/v1/businesses/<int:id>', methods=['GET','PUT','DELETE'])
     def business_manipulation(id):
-        #get business by id
+        """gets the id of the business"""
+        """uses the id to get a single business"""
+        
         business_found= Business.find_business_id(id)
 
         if not business_found:

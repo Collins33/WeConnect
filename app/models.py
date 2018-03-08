@@ -1,7 +1,7 @@
 import random
 
 class Business(object):
-    #empty list containing created businesses
+   """class to create instance of business"""
     business_list=[]
 
     def __init__(self,name,description,location,contact):
@@ -13,6 +13,9 @@ class Business(object):
         
 
     def save_business(self,name,description,location,contact):
+        """this method adds a dict to the business list"""
+        """the dict contains details of the business"""
+
         new_business={}
 
         new_business["name"]=name
@@ -28,13 +31,15 @@ class Business(object):
     
     @classmethod
     def get_all_businesses(cls):
-        #it will return the contents of the list
-        # print(cls.business_list)
+        """it will return the contents of the list
+         print(cls.business_list)"""
         return cls.business_list
       
       
     @classmethod
     def find_business_id(cls,id):
+        """will return the dicts inside businesslist"""
+
         business=[business for business in cls.business_list if business['id'] == id]
         print(business)
         return business
@@ -93,6 +98,7 @@ class User(object):
 
     @classmethod
     def check_email_exists(cls,email):
+        """validates email to avoid two accounts with same user email"""
         for user in cls.user_list:
             if user.get("email") == email:
                 return True
