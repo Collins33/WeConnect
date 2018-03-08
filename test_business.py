@@ -4,9 +4,10 @@ import json
 from app import create_app
 from app.models import Business
 from app.models import User
-from flask import session
+
 
 class BusinessTestCase(unittest.TestCase):
+    
 
     def setUp(self):
         #initialize our app with the testing configuration
@@ -17,15 +18,21 @@ class BusinessTestCase(unittest.TestCase):
         self.business={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
         self.testBusiness={"name":"wwe","description":"Wrestling business","location":"nairobi","contact":"071234445"}
 
-        #data to for user
-        self.user={"username":"collins","email":"collinsnjau39@gmail.com","password":"123456","confirm_password":"123456"}
+        with self.app.test_client() as c:
+            with c.session_transaction() as sess:
+                sess["username"]="collins"
 
-        self.login={"username":"collins","password":"123456"}
+
+
+           
+            
+
+        
+        #data to for user
+        
 
 
     def test_business_creation(self):
-        user=self.client().post('/api/v1/auth/register', data=self.user)
-        login=self.client().post('/api/v1/auth/login', data=self.login)
         
         #test if the api can create a business 
         res=self.client().post('/api/v1/businesses', data=self.business)
@@ -34,8 +41,7 @@ class BusinessTestCase(unittest.TestCase):
         # self.assertIn("Business that sells tropical drinks",str(res.data))
 
     def test_api_can_get_all_businesses(self):
-        user=self.client().post('/api/v1/auth/register', data=self.user)
-        login=self.client().post('/api/v1/auth/login', data=self.login)
+        
         #tests if the api can get all the businesses
         res=self.client().post('/api/v1/businesses', data=self.business)
 
@@ -48,9 +54,6 @@ class BusinessTestCase(unittest.TestCase):
         # self.assertIn("Business that sells tropical drinks",str(res.data))
 
     def test_api_can_get_business_by_id(self):
-        user=self.client().post('/api/v1/auth/register', data=self.user)
-        login=self.client().post('/api/v1/auth/login', data=self.login)
-
         res=self.client().post('/api/v1/businesses', data=self.business)
         res.test=self.client().post('/api/v1/businesses', data=self.testBusiness)
 
@@ -65,9 +68,6 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(get_request.status_code,200)
 
     def test_api_can_edit_business(self):
-        user=self.client().post('/api/v1/auth/register', data=self.user)
-        login=self.client().post('/api/v1/auth/login', data=self.login)
-
         #tests if a the api can get a business and edit it 
         res=self.client().post('/api/v1/businesses', data=self.business)
 

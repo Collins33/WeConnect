@@ -8,7 +8,7 @@ class Business(object):
 
     def __init__(self,name,description,location,contact):
         """initilize with id which is the length of the business"""
-        self.id=len(Business.business_list)
+        self.id=len(Business.business_list)+1
         self.name=name
         self.description=description
         self.location=location

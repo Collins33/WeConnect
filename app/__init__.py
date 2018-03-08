@@ -135,7 +135,9 @@ def create_app(config_name):
         business_found= Business.find_business_id(id)
 
         if not business_found:
-            abort(404)
+            message="No business found"
+            response=jsonify({"message":message,"status_code":404})
+            return response
 
         if request.method == "GET":
             response=jsonify({"Business":business_found})
