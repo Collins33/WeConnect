@@ -134,11 +134,19 @@ def create_app(config_name):
             if name and description and location and contact:
                 """validate that it is not duplicate"""
                 validateName=Business.check_name_exists(name)
+                validateContact=Business.check_contact_exists(contact)
                 if validateName:
                     response=jsonify({"message":"Business name already exists","status_code":404})
                     response.status_code=404    
                     return response
                     return response.status_code
+
+                elif validateContact:
+                    response=jsonify({"message":"Business contact already exists","status_code":404})
+                    response.status_code=404    
+                    return response
+                    return response.status_code
+
                 
                 else:
                     """create business object"""
