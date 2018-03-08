@@ -117,7 +117,7 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(result.status_code,201)
 
         res=self.client().post('/api/v1/businesses', data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
-        self.assertEqual(res.status_code,404)
+        self.assertEqual(res.status_code,400)
 
 
     def test_api_cannot_create_business_contact_exist(self):
@@ -125,7 +125,7 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(result.status_code,201)
 
         res=self.client().post('/api/v1/businesses', data={"name":"tropical","description":"Business that sells drinks","location":"nairobi","contact":"071234445"})
-        self.assertEqual(res.status_code,404)
+        self.assertEqual(res.status_code,400)
 
 
 

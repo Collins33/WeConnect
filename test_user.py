@@ -64,7 +64,7 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(result.status_code,200)
 
         res=self.client().post('/api/v1/auth/register', data={"username":"collins","email":"collinsnjau40@gmail.com","password":"123456","confirm_password":"123456"})
-        self.assertEqual(res.status_code,404)
+        self.assertEqual(res.status_code,400)
 
     def test_api_password_must_be_greater_than_six_characters(self):
         result=self.client().post('/api/v1/auth/register', data=self.user)

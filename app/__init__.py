@@ -42,20 +42,20 @@ def create_app(config_name):
 
             if  value:
 
-                response=jsonify({"message":"email already exists","status_code":404})
-                response.status_code=404    
+                response=jsonify({"message":"email already exists","status_code":400})
+                response.status_code=400    
                 return response
                 return response.status_code
 
             elif value_name:
-                response=jsonify({"message":"username already exists","status_code":404})
-                response.status_code=404    
+                response=jsonify({"message":"username already exists","status_code":400})
+                response.status_code=400    
                 return response
                 return response.status_code
 
             elif validate_password:
-                response=jsonify({"message":"password must be longer than 6 characters","status_code":404})
-                response.status_code=404    
+                response=jsonify({"message":"password must be longer than 6 characters","status_code":400})
+                response.status_code=400    
                 return response
                 return response.status_code
 
@@ -64,7 +64,7 @@ def create_app(config_name):
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)
                 message=user.save_user(username,email,password,confirm_password)
                 """turn message into json"""
-                response=jsonify({"message":message,"status_code":200})
+                response=jsonify({"message":message,"status_code":201})
                 """response.status_code=201"""
                 
                 return response
@@ -136,14 +136,14 @@ def create_app(config_name):
                 validateName=Business.check_name_exists(name)
                 validateContact=Business.check_contact_exists(contact)
                 if validateName:
-                    response=jsonify({"message":"Business name already exists","status_code":404})
-                    response.status_code=404    
+                    response=jsonify({"message":"Business name already exists","status_code":400})
+                    response.status_code=400    
                     return response
                     return response.status_code
 
                 elif validateContact:
-                    response=jsonify({"message":"Business contact already exists","status_code":404})
-                    response.status_code=404    
+                    response=jsonify({"message":"Business contact already exists","status_code":400})
+                    response.status_code=400  
                     return response
                     return response.status_code
 
