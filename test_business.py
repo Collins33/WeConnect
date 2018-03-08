@@ -86,6 +86,11 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(deleted_business.status_code,404)
 
 
+    def test_api_cannot_register_without_all_fields(self):
+        res=self.client().post('/api/v1/businesses', data={"name":"tropics","contact":"09385789"})
+        self.assertEqual(res.status_code,400)   
+
+
     def tearDown(self):
         #runs after every test
         #makes the business_list empty
