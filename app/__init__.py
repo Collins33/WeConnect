@@ -48,11 +48,16 @@ def create_app(config_name):
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)
                 message=user.save_user(username,email,password,confirm_password)
                 """turn message into json"""
-                response=jsonify({"message":message,"status_code":201})
+                response=jsonify({"message":message,"status_code":200})
                 """response.status_code=201"""
                 
                 return response
                 return response.status_code
+
+        else:
+            response=jsonify({"message":"enter all details","status_code":400})
+            return response
+
 
 
     @app.route('/api/v1/auth/login', methods=['POST'])
@@ -64,9 +69,13 @@ def create_app(config_name):
         if username and password:
             session["username"]=username
             message=User.login(username,password)
-            response=jsonify({"message":message,"status_code":201})
+            response=jsonify({"message":message,"status_code":200})
             return response
-            return response.status_code
+            
+
+        else:
+            response=jsonify({"message":"enter all details","status_code":400})
+            return response    
 
 
     @app.route('/api/v1/auth/logout', methods=["POST"])
