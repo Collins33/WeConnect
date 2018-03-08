@@ -6,7 +6,7 @@ class Business(object):
     business_list=[]
 
     def __init__(self,name,description,location,contact):
-        self.id=len(Business.business_list)
+        self.id=len(Business.business_list)+1
         self.name=name
         self.description=description
         self.location=location
