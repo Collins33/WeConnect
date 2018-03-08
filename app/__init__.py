@@ -101,7 +101,7 @@ def create_app(config_name):
             location=str(request.data.get('location', ''))
             contact=str(request.data.get('contact', ''))
 
-            if name:
+            if name and description and location and contact:
                 """create business object"""
                 business=Business(name=name,description=description,location=location,contact=contact)
                 
@@ -112,6 +112,15 @@ def create_app(config_name):
                 response.status_code=201
 
                 return response
+
+            else:
+                response=jsonify({"message":"enter all details","status_code":400})
+                return response
+
+
+
+
+
         else:
             Businesses=Business.business_list
             response=jsonify({"Businesses":Businesses})
@@ -128,7 +137,7 @@ def create_app(config_name):
         business_found= Business.find_business_id(id)
 
         if not business_found:
-            abort(404)
+            response=jsonify({"message":"business does not existy","status":404})
 
         if request.method == "GET":
             response=jsonify({"Business":business_found})
