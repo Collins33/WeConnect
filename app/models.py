@@ -5,7 +5,7 @@ class Business(object):
     business_list=[]
 
     def __init__(self,name,description,location,contact):
-        self.id=random.randint(0,100)
+        self.id=len(Business.business_list)
         self.name=name
         self.description=description
         self.location=location

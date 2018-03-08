@@ -14,6 +14,9 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 -pip install -r requirements.txt
 
+## Running tests
+- pytest
+
 ### Prerequisites
 
 -python
