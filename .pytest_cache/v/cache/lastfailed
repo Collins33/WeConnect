@@ -1,3 +1,10 @@
 {
+  "test_business.py::BusinessTestCase::test_api_can_edit_business": true,
+  "test_business.py::BusinessTestCase::test_api_can_get_all_businesses": true,
+  "test_business.py::BusinessTestCase::test_api_can_get_business_by_id": true,
+  "test_business.py::BusinessTestCase::test_business_creation": true,
+  "test_business_model.py::TestBusiness::test_find_business_by_id": true,
+  "test_business_model.py::TestBusiness::test_initilize_business": true,
+  "test_business_model.py::TestBusiness::test_save_adds_business_to_list": true,
   "test_user.py::UserTestCase::test_cannot_create_account_with_email_already_exist": true
 }

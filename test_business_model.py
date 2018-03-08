@@ -1,12 +1,16 @@
 import unittest
 from app.models import Business
+from flask import session
+
 
 class TestBusiness(unittest.TestCase):
     def setUp(self):
         """create new instance of business"""
+        session["username"]="collins"
         self.business=Business("pakjel","local supermarket","landless","0702848032")
 
     def test_initilize_business(self):
+        
         self.assertEqual(self.business.name,"pakjel")
 
 

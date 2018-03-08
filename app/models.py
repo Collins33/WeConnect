@@ -1,4 +1,5 @@
 import random
+from flask import session
 
 class Business(object):
 
@@ -12,6 +13,8 @@ class Business(object):
         self.description=description
         self.location=location
         self.contact=location
+        self.owner=session["username"]
+        
         
 
     def save_business(self,name,description,location,contact):
@@ -25,6 +28,7 @@ class Business(object):
         new_business["location"]=location
         new_business["contact"]=contact
         new_business["id"]=self.id
+        new_business["owner"]=self.owner
 
 
         Business.business_list.append(new_business)
@@ -90,17 +94,14 @@ class User(object):
     def validate_password(password):
         if len(password)< 6:
             
-            return False
-
-        else:
             return True
+
+        return False
     # @staticmethod
     # def validate_email(email):
     #     if "@" in email and "." in email:
-    #         return True
-    #     else:
-            
-    #         return False        
+    #         return False
+    #     return  True      
 
      
     @classmethod
@@ -120,7 +121,9 @@ class User(object):
         """validates email to avoid two accounts with same user email"""
         for user in cls.user_list:
             if user.get("email") == email:
-                return False
+                return True
+            
+              
             
             return False       
 

@@ -39,9 +39,17 @@ def create_app(config_name):
 
             value_email_check=User.check_email_exists(email)
             # validateEmail=User.validate_email(email)
-            validPassword=User.validate_password(password)
+            # validPassword=User.validate_password(password)
 
-            if  value_email_check and validPassword:
+            if  value_email_check:
+                response=({"message":"Email already exists"})
+
+                    
+                return response
+                
+                
+            else:
+                
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)
                 message=user.save_user(username,email,password,confirm_password)
                 """turn message into json"""
@@ -50,12 +58,6 @@ def create_app(config_name):
                 
                 return response
                 return response.status_code
-                
-            else:
-                response=({"message":"Enter valid credential"})
-
-                    
-                return response
                 
 
 
@@ -107,6 +109,7 @@ def create_app(config_name):
 
             if name:
                 """create business object"""
+                
                 business=Business(name=name,description=description,location=location,contact=contact)
                 
                 new_business=business.save_business(name,description,location,contact)
