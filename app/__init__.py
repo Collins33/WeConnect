@@ -141,71 +141,71 @@ def create_app(config_name):
         return jsonify({"message": "You are not logged in"})    
                     
 
-
-
-
-     
-
-
-
-
-     
-                    
- 
     @app.route('/api/v1/businesses', methods=['POST','GET'])
     def business():
-        if request.method == 'POST':
-            """gets data from request and save business"""
 
-            name = str(request.data.get('name', ''))          
-            description=str(request.data.get('description', ''))
-            location=str(request.data.get('location', ''))
-            contact=str(request.data.get('contact', ''))
+        if session.get("username") is not None:
 
-            if name and description and location and contact:
-                """validate that it is not duplicate"""
-                validateName=Business.check_name_exists(name)
-                validateContact=Business.check_contact_exists(contact)
-                if validateName:
-                    response=jsonify({"message":"Business name already exists","status_code":400})
-                    response.status_code=400    
-                    return response
-                    return response.status_code
+            if request.method == 'POST':
+                """gets data from request and save business"""
 
-                elif validateContact:
-                    response=jsonify({"message":"Business contact already exists","status_code":400})
-                    response.status_code=400  
-                    return response
-                    return response.status_code
+                name = str(request.data.get('name', ''))          
+                description=str(request.data.get('description', ''))
+                location=str(request.data.get('location', ''))
+                contact=str(request.data.get('contact', ''))
 
-                
+                if name and description and location and contact:
+                    """validate that it is not duplicate"""
+                    validateName=Business.check_name_exists(name)
+                    validateContact=Business.check_contact_exists(contact)
+                    if validateName:
+                        response=jsonify({"message":"Business name already exists","status_code":400})
+                        response.status_code=400    
+                        return response
+                        return response.status_code
+
+                    elif validateContact:
+                        response=jsonify({"message":"Business contact already exists","status_code":400})
+                        response.status_code=400  
+                        return response
+                        return response.status_code
+
+                    
+                    else:
+                        """create business object"""
+                        business=Business(name=name,description=description,location=location,contact=contact)
+                        
+                        new_business=business.save_business(name,description,location,contact)
+
+                        
+                        response=jsonify(new_business)
+                        response.status_code=201
+
+                        return response
+
                 else:
-                    """create business object"""
-                    business=Business(name=name,description=description,location=location,contact=contact)
-                    
-                    new_business=business.save_business(name,description,location,contact)
-
-                    
-                    response=jsonify(new_business)
-                    response.status_code=201
-
+                    response=jsonify({"message":"enter all details","status_code":400})
+                    response.status_code=400
                     return response
+                    return response.status
+
+
+
+
 
             else:
-                response=jsonify({"message":"enter all details","status_code":400})
-                response.status_code=400
+                Businesses=Business.business_list
+                response=jsonify({"businesses":Businesses})
+                response.status_code=200
                 return response
-                return response.status
-
-
-
 
 
         else:
-            Businesses=Business.business_list
-            response=jsonify({"businesses":Businesses})
-            response.status_code=200
+            response=jsonify({"message":"must be logged in to add or view businesses","status_code":401})
+            response.status_code=401
             return response
+            return response.status_code
+                    
 
                 
 
