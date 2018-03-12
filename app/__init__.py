@@ -108,11 +108,19 @@ def create_app(config_name):
         password=str(request.data.get('password', ''))
 
         if username and password:
-            session["username"]=username
-            message=User.login(username,password)
-            response=jsonify({"message":message,"status_code":200})
-            return response
             
+            if session.get("username") is None:
+                session["username"]=username
+                message=User.login(username,password)
+                response=jsonify({"message":message,"status_code":200})
+                return response
+                return response.status_code
+
+            else:
+                response=jsonify({"message":"You are already logged in","status_code":409})
+                return response
+                return response.status_code 
+                
 
         else:
             response=jsonify({"message":"enter all details","status_code":400})

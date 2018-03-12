@@ -82,15 +82,6 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,400)
 
 
-
-
-
-
-
-
-
-        
-
     def tearDown(self):
         User.user_list=[]    
 

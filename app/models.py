@@ -110,7 +110,7 @@ class User(object):
                 message="you have successfully logged in"
                 return message
             
-            message="username or email is invalid"
+            message="username or password is invalid"
             return message    
    
 
