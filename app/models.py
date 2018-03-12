@@ -1,4 +1,5 @@
 import random
+import re
 
 class Business(object):
 
@@ -136,8 +137,29 @@ class User(object):
         if len(password)<6:
             return True
 
-        return False               
+        return False
 
+    @staticmethod
+    def check_empty_email(email):
+        empty=[""," ","  ","   ","    ","     ","      ","       ","       ","        ","         ","          ","           ","            "]
+        if email in empty:
+            return True
+
+        return False
+
+    @staticmethod
+    def check_empty_password(password):
+        empty=["       ","        ","         ","          ","           ","            "]
+        if  password in empty:
+            return True
+        return False
+                   
+    @staticmethod
+    def valid_email(email):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+           return True
+           
+        return False
 
         
 

@@ -39,9 +39,11 @@ def create_app(config_name):
             value=User.check_email_exists(email)
             value_name=User.check_name_exists(username)
             validate_password=User.validate_password(password)
+            validate_password_exists=User.check_empty_password(password)
+            validate_email_exists=User.check_empty_email(email)
+            validEmail=User.valid_email(email)
 
             if  value:
-
                 response=jsonify({"message":"email already exists","status_code":400})
                 response.status_code=400    
                 return response
@@ -58,6 +60,27 @@ def create_app(config_name):
                 response.status_code=400    
                 return response
                 return response.status_code
+
+            elif validate_password_exists:
+                response=jsonify({"message":"password must have characters","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
+            elif validate_email_exists:
+                response=jsonify({"message":"email must have characters","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
+            elif validEmail:
+                response=jsonify({"message":"email must have correct format eg collinsnjau39@gmail.com","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
+
+
 
 
             else:
@@ -172,7 +195,7 @@ def create_app(config_name):
 
         else:
             Businesses=Business.business_list
-            response=jsonify({"Businesses":Businesses})
+            response=jsonify({"businesses":Businesses})
             response.status_code=200
             return response
 
@@ -190,7 +213,7 @@ def create_app(config_name):
 
         if request.method == "GET":
             if business_found:     
-                response=jsonify({"Business":business_found})
+                response=jsonify({"business":business_found})
                 response.status_code=200
                 return response
 

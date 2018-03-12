@@ -70,8 +70,19 @@ class UserTestCase(unittest.TestCase):
         result=self.client().post('/api/v1/auth/register', data=self.user)
         self.assertEqual(result.status_code,200)
 
-        res=self.client().post('/api/auth/register', data={"username":"njau","email":"collinsnjau40@gmail.com","password":"123","confirm_password":"123"})
-        self.assertEqual(res.status_code,404)
+        res=self.client().post('/api/v1/auth/register', data={"username":"njau","email":"collinsnjau40@gmail.com","password":"123","confirm_password":"123"})
+        self.assertEqual(res.status_code,400)
+
+
+    def test_api_not_register_empty_email(self):
+        result=self.client().post('/api/v1/auth/register', data=self.user)
+        self.assertEqual(result.status_code,200)
+
+        res=self.client().post('/api/v1/auth/register', data={"username":"olivia","email":"","password":"123456","confirm_password":"123456"})
+        self.assertEqual(res.status_code,400)
+
+
+
 
 
 
