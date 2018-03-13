@@ -31,12 +31,12 @@ class UserTestCase(unittest.TestCase):
         """ tests if the api can add a user"""
 
         result=self.client().post('/api/v1/auth/register', data=self.user)
-        self.assertEqual(result.status_code,200)
+        self.assertEqual(result.status_code,201)
 
 
     def test_cannot_create_account_with_email_already_exist(self):
         result=self.client().post('/api/v1/auth/register', data=self.user)
-        self.assertEqual(result.status_code,200)
+        self.assertEqual(result.status_code,201)
 
         res=self.client().post('/api/v1/auth/register', data={"username":"chuck","email":"collinsnjau39@gmail.com","password":"123456","confirm_password":"123456"})
         self.assertEqual(res.status_code,400)
@@ -46,7 +46,7 @@ class UserTestCase(unittest.TestCase):
     def test_api_can_login_user(self):
         """user creates account"""
         result=self.client().post('/api/v1/auth/register', data=self.user)
-        self.assertEqual(result.status_code,200)
+        self.assertEqual(result.status_code,201)
 
         """user logs in"""
         res=self.client().post('/api/v1/auth/login', data=self.login)
@@ -63,14 +63,14 @@ class UserTestCase(unittest.TestCase):
 
     def test_api_cannot_create_account_with_username_exists(self):
         result=self.client().post('/api/v1/auth/register', data=self.user)
-        self.assertEqual(result.status_code,200)
+        self.assertEqual(result.status_code,201)
 
         res=self.client().post('/api/v1/auth/register', data={"username":"collins","email":"collinsnjau40@gmail.com","password":"123456","confirm_password":"123456"})
         self.assertEqual(res.status_code,400)
 
     def test_api_password_must_be_greater_than_six_characters(self):
         result=self.client().post('/api/v1/auth/register', data=self.user)
-        self.assertEqual(result.status_code,200)
+        self.assertEqual(result.status_code,201)
 
         res=self.client().post('/api/v1/auth/register', data={"username":"njau","email":"collinsnjau40@gmail.com","password":"123","confirm_password":"123"})
         self.assertEqual(res.status_code,400)
@@ -78,7 +78,7 @@ class UserTestCase(unittest.TestCase):
 
     def test_api_not_register_empty_email(self):
         result=self.client().post('/api/v1/auth/register', data=self.user)
-        self.assertEqual(result.status_code,200)
+        self.assertEqual(result.status_code,201)
 
         res=self.client().post('/api/v1/auth/register', data={"username":"olivia","email":"","password":"123456","confirm_password":"123456"})
         self.assertEqual(res.status_code,400)
