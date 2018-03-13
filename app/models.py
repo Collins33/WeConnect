@@ -59,7 +59,15 @@ class Business(object):
         for business in cls.business_list:
             if business.get("contact") == contact:
                 return True
-            return False        
+            return False
+
+
+    @classmethod
+    def find_business_name(cls,name):
+        """will return business that matches the name"""
+        business=[business for business in cls.business_list if business['name'] == name]
+        print (business)
+        return business            
       
       
       

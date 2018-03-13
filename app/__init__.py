@@ -241,6 +241,77 @@ def create_app(config_name):
 
 
 
+    @app.route('/api/v1/businesses/<string:name>', methods=['GET','PUT'])
+    def business_manipulation_by_name(name):
+        """get the id from the route"""
+        """use the name to find the business"""
+
+        business_found=Business.find_business_name(name)
+        if not business_found:
+            """if no business matches the name"""
+            response=jsonify({"message":"business does not exist","status":404})
+            response.status_code=404
+            return response
+            return response.status_code
+
+
+        if request.method == "GET":
+            if business_found:     
+                response=jsonify({"Business":business_found})
+                response.status_code=200
+                return response
+
+            else:
+                response=jsonify({"message":"business does not exist","status":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
+
+        elif request.method == 'PUT':
+            if business_found:
+
+                name = str(request.data.get('name', ''))          
+                description=str(request.data.get('description', ''))
+                location=str(request.data.get('location', ''))
+                contact=str(request.data.get('contact', ''))
+
+                business_found[0]["name"] =name
+                business_found[0]["description"]=description
+                business_found[0]["location"]=location
+                business_found[0]["contact"]=contact
+
+                response=jsonify({"business":business_found})
+                response.status_code=200
+                return response
+
+            else:
+                response=jsonify({"message":"Cannot update business that does not exist","status":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
+
+        else:
+            if business_found:
+
+                businesses=Business.get_all_businesses()
+                businesses.remove(business_found[0])
+                response=jsonify({"business":"business successfully deleted","status":200})
+                response.status_code=200
+                return response
+            else:
+                response=jsonify({"message":"Cannot delete business that does not exist","status":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
+
+
+
+
+
+
     return app
 
 

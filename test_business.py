@@ -126,6 +126,20 @@ class BusinessTestCase(unittest.TestCase):
 
         res=self.client().post('/api/v1/businesses', data={"name":"tropical","description":"Business that sells drinks","location":"nairobi","contact":"071234445"})
         self.assertEqual(res.status_code,400)
+    
+    def test_api_can_get_business_by_name(self):
+        res=self.client().post('/api/v1/businesses', data=self.business)
+        res.test=self.client().post('/api/v1/businesses', data=self.testBusiness)
+
+        self.assertEqual(res.status_code,201)
+        #convert response to json
+        result_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
+
+        #make get request and add the id
+        get_request=self.client().get('/api/v1/businesses/{}'.format(result_in_json['name']))
+
+        #assert the request status
+        self.assertEqual(get_request.status_code,200)
 
 
 
