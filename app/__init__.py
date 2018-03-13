@@ -241,7 +241,7 @@ def create_app(config_name):
 
 
 
-    @app.route('/api/v1/businesses/<str:name>', methods=['GET','PUT','DELETE'])
+    @app.route('/api/v1/businesses/<string:name>', methods=['GET'])
     def business_manipulation_by_name(name):
         """get the id from the route"""
         """use the name to find the business"""
@@ -253,6 +253,20 @@ def create_app(config_name):
             response.status_code=404
             return response
             return response.status_code
+
+
+        if request.method == "GET":
+            if business_found:     
+                response=jsonify({"Business":business_found})
+                response.status_code=200
+                return response
+
+            else:
+                response=jsonify({"message":"business does not exist","status":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
 
 
 
