@@ -201,8 +201,8 @@ def create_app(config_name):
                 response.status_code=200
                 return response
         else:
-            response=jsonify({"message":"must be logged in to add or view businesses","status_code":401})
-            response.status_code=409
+            response=jsonify({"message":"must be logged in to add or view businesses","status_code":403})
+            response.status_code=403
             return response
             return response.status_code
                     
