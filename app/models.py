@@ -107,12 +107,10 @@ class User(object):
         """logs in user by checking if they exist in the list"""
         for user in cls.user_list:
             if user["username"]==username and user["password"]==password:
-                message="you have successfully logged in"
-                return message
+                return True
             
-            message="username or password is invalid"
-            return message    
-   
+            else:
+                return False
 
     @classmethod
     def check_email_exists(cls,email):

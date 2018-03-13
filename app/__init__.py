@@ -106,15 +106,25 @@ def create_app(config_name):
 
         if username and password:
             
-            if session.get("username",None) != username:
-                session["username"]=username
-                message=User.login(username,password)
-                response=jsonify({"message":message,"status_code":200})
-                return response
-                return response.status_code
+            if session.get("username") is None:
+                validate_user=User.login(username,password)
+                if validate_user:
+                    session["username"]=username
+                    response=jsonify({"message":"successfully logged in","status_code":200})
+                    response.status_code=200
+                    return response
+                    return response.status_code
+
+                else:
+                    response=jsonify({"message":"username or email is invalid","status_code":400})
+                    response.status_code=400
+                    return response
+                    return response.status_code
+
 
             else:
                 response=jsonify({"message":"You are already logged in","status_code":409})
+                response.status_code=409
                 return response
                 return response.status_code 
                 
