@@ -37,24 +37,33 @@ class BusinessTestCase(unittest.TestCase):
 
         return self.client().post('/api/v1/auth/login', data=user_data)
 
+
+    def log_out(self):
+        return self.client().post('/api/v1/auth/logout') 
+
+
     def test_api_cannot_create_business_user_logged_in(self):
+        """user who is not authenticated cannot add business"""
+        
         res=self.client().post('/api/v1/businesses', data=self.business)
         self.assertEqual(res.status_code,403)
 
 
+    def test_business_creation(self):
+        """first register a user then log them in"""
+        register_user=self.register_user()
+        self.assertEqual(register_user.status_code,201)
 
-    # def test_business_creation(self):
-    #     # """first register a user then log them in"""
-    #     # register_user=self.register_user()
-    #     # self.assertEqual(register_user.status_code,200)
+        log_out_user=self.log_out()
+        self.assertEqual(log_out_user.status_code,200)
         
         
-    #     # login_user=self.login_user() 
-    #     # self.assertEqual(login_user.status_code,200)
+        login_user=self.login_user() 
+        self.assertEqual(login_user.status_code,200)
 
-    #     #test if the api can create a business 
-    #     res=self.client().post('/api/v1/businesses', data=self.business)
-    #     self.assertEqual(res.status_code,403)
+        #test if the api can create a business 
+        res=self.client().post('/api/v1/businesses', data=self.business)
+        self.assertEqual(res.status_code,200)
         
 
     # def test_api_can_get_all_businesses(self):

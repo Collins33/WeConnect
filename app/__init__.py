@@ -145,7 +145,11 @@ def create_app(config_name):
 
         if session.get("username") is not None:
             session.pop("username", None)
-            return jsonify({"message": "Logout successful"})
+            response=jsonify({"message":"Login successful","status_code":200})
+            response.status_code=200
+            return response
+            return response.status_code
+
         return jsonify({"message": "You are not logged in"})    
                     
 
@@ -203,7 +207,7 @@ def create_app(config_name):
                 return response
 
 
-        else:
+        elif session.get("username") is None:
             """run this if user is logged out"""
             response=jsonify({"message":"must be logged in to add or view businesses","status_code":403})
             response.status_code=403
