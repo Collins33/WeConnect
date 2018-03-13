@@ -45,7 +45,8 @@ WeConnect provides a platform that brings businesses and individuals together. T
 | PUT /api/businesses/businessId     | This will update the business      | 
 | DELETE /api//businesses/businessId | This will delete a business        |
 | GET  /api/businesses               | This will get all businesses       |
-| GET  /api/businesses/businessId    | retrieve a single business         |      
+| GET  /api/businesses/businessId    | retrieve a single business by id   |
+| GET  /api/businesses/businessName  | retrieve a single business by name |       
 
 
 ## Built With
