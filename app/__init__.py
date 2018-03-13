@@ -85,7 +85,8 @@ def create_app(config_name):
                 message=user.save_user(username,email,password,confirm_password)
                 """turn message into json"""
                 response=jsonify({"message":message,"status_code":201})
-                """response.status_code=201"""
+                response.status_code=201
+
                 
                 return response
                 return response.status_code
@@ -200,7 +201,10 @@ def create_app(config_name):
                 response=jsonify({"businesses":Businesses})
                 response.status_code=200
                 return response
+
+
         else:
+            """run this if user is logged out"""
             response=jsonify({"message":"must be logged in to add or view businesses","status_code":403})
             response.status_code=403
             return response
