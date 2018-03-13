@@ -1,1 +1,3 @@
-{}
+{
+  "test_business.py::BusinessTestCase::test_api_can_get_business_by_name": true
+}
