@@ -17,7 +17,7 @@ class BusinessTestCase(unittest.TestCase):
     
 
 
-    def register_user(self,username="collins",email="collinsnjau39@gmail.com",password="1234567",confirm_password="1234567"):
+    def register_user(self,username="njau",email="njaucollins39@gmail.com",password="1234567",confirm_password="1234567"):
         """this method will register a test user"""
         user_data={
             'username':username,
@@ -28,7 +28,7 @@ class BusinessTestCase(unittest.TestCase):
         return self.client().post('/api/v1/auth/register', data=user_data)
 
 
-    def login_user(self,username="collins",password="1234567"):
+    def login_user(self,username="njau",password="1234567"):
         """this method will log in a user"""
         user_data={
             'username':username,
