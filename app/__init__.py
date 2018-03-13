@@ -80,9 +80,6 @@ def create_app(config_name):
                 return response.status_code
 
 
-
-
-
             else:
                 user=User(username=username,email=email,password=password,confirm_password=confirm_password)
                 message=user.save_user(username,email,password,confirm_password)
@@ -109,7 +106,7 @@ def create_app(config_name):
 
         if username and password:
             
-            if session.get("username") is None:
+            if session.get("username",None) != username:
                 session["username"]=username
                 message=User.login(username,password)
                 response=jsonify({"message":message,"status_code":200})
@@ -188,20 +185,14 @@ def create_app(config_name):
                     return response
                     return response.status
 
-
-
-
-
             else:
                 Businesses=Business.business_list
                 response=jsonify({"businesses":Businesses})
                 response.status_code=200
                 return response
-
-
         else:
             response=jsonify({"message":"must be logged in to add or view businesses","status_code":401})
-            response.status_code=401
+            response.status_code=409
             return response
             return response.status_code
                     
