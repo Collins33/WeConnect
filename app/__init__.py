@@ -131,6 +131,14 @@ def create_app(config_name):
                 return response
                 return response.status_code
 
+
+            elif response_message ==  "Account does not exist":
+                response=jsonify({"message":"password and confirm must be the same","status_code":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
+
                 
             
                     

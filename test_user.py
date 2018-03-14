@@ -97,6 +97,21 @@ class UserTestCase(unittest.TestCase):
 
 
 
+    def test_api_cannot_reset_account_that_does_not_exist(self):
+
+        """this will test if user can reset account that 
+        does not exist"""
+
+        result=self.client().post('/api/v1/auth/register', data=self.user)
+        self.assertEqual(result.status_code,200)
+
+        res=self.client().post('/api/v1/auth/reset-password', data={"email":"collinsnjau100@gmail.com","password":"987654","confirm_password":"987654"})
+        self.assertEqual(res.status_code,404)
+
+
+
+
+
 
 
 
