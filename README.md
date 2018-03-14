@@ -4,6 +4,8 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 [![Build Status](https://travis-ci.org/Collins33/WeConnect.svg?branch=master)](https://travis-ci.org/Collins33/WeConnect)
 
+[![Coverage Status](https://coveralls.io/repos/github/Collins33/WeConnect/badge.svg?branch=master)](https://coveralls.io/github/Collins33/WeConnect?branch=master)
+
 ## Getting Started
 
 -git clone https://github.com/Collins33/WeConnect.git
