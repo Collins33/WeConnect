@@ -81,7 +81,7 @@ class UserTestCase(unittest.TestCase):
         result=self.client().post('/api/v1/auth/register', data=self.user)
         self.assertEqual(result.status_code,200)
 
-        res=self.client().post('/api/auth/reset-password', data=self.reset)
+        res=self.client().post('/api/v1/auth/reset-password', data=self.reset)
         self.assertEqual(res.status_code,200)
 
 
