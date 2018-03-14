@@ -25,6 +25,8 @@ class UserTestCase(unittest.TestCase):
 
         self.login={"username":"collins","password":"123456"}
 
+        self.reset={"email":"collinsnjau39@gmail.com","password":"987654","confirm_password":"987654"}
+
 
 
     def test_api_can_create_user(self):
@@ -72,6 +74,16 @@ class UserTestCase(unittest.TestCase):
 
         res=self.client().post('/api/auth/register', data={"username":"njau","email":"collinsnjau40@gmail.com","password":"123","confirm_password":"123"})
         self.assertEqual(res.status_code,404)
+
+
+    def test_api_reset_password(self):
+        """this will test if user can reset password"""
+        result=self.client().post('/api/v1/auth/register', data=self.user)
+        self.assertEqual(result.status_code,200)
+
+        res=self.client().post('/api/auth/reset-password', data=self.reset)
+        self.assertEqual(res.status_code,200)
+
 
 
 
