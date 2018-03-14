@@ -144,7 +144,27 @@ class User(object):
         if len(password)<6:
             return True
 
-        return False               
+        return False
+
+    @staticmethod
+    def reset_password(email,password,confirm_password):
+        for user in User.user_list:
+            if user["email"] == email:
+                if password == confirm_password:
+                    user["password"]=password
+                    user["confirm_password"]=confirm_password
+                    message="Password reset was successful"
+                    return message
+
+                else:
+                    message="Password and confirm password must be the same"
+                    return message
+            else:
+                message="Account does not exist"
+                return message
+                        
+
+
 
 
         

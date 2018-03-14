@@ -107,7 +107,48 @@ def create_app(config_name):
         if session.get("username") is not None:
             session.pop("username", None)
             return jsonify({"message": "Logout successful"})
-        return jsonify({"message": "You are not logged in"})    
+        return jsonify({"message": "You are not logged in"})
+
+
+    @app.route('/api/v1/auth/reset-password', methods=['POST'])
+    def reset():
+        email=str(request.data.get('email', ''))
+        password=str(request.data.get('password', ''))
+        confirm_password=str(request.data.get('confirm_password', ''))
+
+        if email and password and confirm_password:
+            response_message=User.reset_password(email,password,confirm_password)
+
+            if response_message == "Password reset was successful":
+                response=jsonify({"message":"password reset successfully","status_code":200})
+                response.status_code=200
+                return response
+                return response.status_code
+
+            elif response_message=="Password and confirm password must be the same":
+                response=jsonify({"message":"password and confirm must be the same","status_code":409})
+                response.status_code=409
+                return response
+                return response.status_code
+
+
+            elif response_message ==  "Account does not exist":
+                response=jsonify({"message":"password and confirm must be the same","status_code":404})
+                response.status_code=404
+                return response
+                return response.status_code
+
+
+        else:
+            response=jsonify({"message":"enter all details","status_code":400})
+            response.status_code=400
+            return response
+            return response.status_code
+
+
+
+                
+            
                     
 
 
