@@ -124,6 +124,13 @@ def create_app(config_name):
                 response.status_code=200
                 return response
                 return response.status_code
+
+            elif response_message=="Password and confirm password must be the same":
+                response=jsonify({"message":"password and confirm must be the same","status_code":409})
+                response.status_code=409
+                return response
+                return response.status_code
+
                 
             
                     

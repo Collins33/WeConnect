@@ -84,6 +84,20 @@ class UserTestCase(unittest.TestCase):
         res=self.client().post('/api/v1/auth/reset-password', data=self.reset)
         self.assertEqual(res.status_code,200)
 
+    def test_api_cannot_reset_password_confirm_not_match(self):
+
+        """this will test if user can reset password
+        if password and confirm are not same"""
+
+        result=self.client().post('/api/v1/auth/register', data=self.user)
+        self.assertEqual(result.status_code,200)
+
+        res=self.client().post('/api/v1/auth/reset-password', data={"email":"collinsnjau39@gmail.com","password":"987654","confirm_password":"9876543"})
+        self.assertEqual(res.status_code,409)
+
+
+
+
 
 
 
