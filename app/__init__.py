@@ -40,6 +40,7 @@ def create_app(config_name):
             value_name=User.check_name_exists(username)
             validate_password=User.validate_password(password)
             validate_email=User.validate_email(email)
+            validate_username=User.validate_username(username)
 
             if  value:
 
@@ -65,6 +66,13 @@ def create_app(config_name):
                 response.status_code=400    
                 return response
                 return response.status_code
+
+            elif validate_username:
+                response=jsonify({"message":"Username must contain characters","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
 
 
 

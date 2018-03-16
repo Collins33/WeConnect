@@ -168,7 +168,14 @@ class User(object):
     def validate_email(email):
         if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
             return True
-        return False            
+        return False
+
+    @staticmethod
+    def validate_username(username):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]*$",username):
+            return True
+        return False    
+
 
 
 
