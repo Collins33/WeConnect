@@ -1,4 +1,7 @@
 {
+  "test_business.py::BusinessTestCase": true,
+  "test_business_model.py::TestBusiness": true,
+  "test_business_reviews.py::ReviewTestCase": true,
   "test_business_reviews.py::ReviewTestCase::test_api_cannot_create_empty_review": true,
-  "test_business_reviews.py::ReviewTestCase::test_api_display_review": true
+  "test_user.py::UserTestCase": true
 }
