@@ -37,18 +37,22 @@ WeConnect provides a platform that brings businesses and individuals together. T
 -flask run
 
 ## ENDPOINTS
-| Endpoint                           | FUNCTIONALITY |
-| -----------------------------------|:-------------:|
-| POST /api/auth/register            | This will register  the user       |
-| POST /api/auth/login               | This will login a registered user  |
-| POST /api/auth/logout              | This will log out a logged in user |
-| POST /api/auth/reset-password      | This will reset the password       | 
-| POST  /api/businesses              | This will add the business         |
-| PUT /api/businesses/businessId     | This will update the business      | 
-| DELETE /api//businesses/businessId | This will delete a business        |
-| GET  /api/businesses               | This will get all businesses       |
-| GET  /api/businesses/businessId    | retrieve a single business by id   |
-| GET  /api/businesses/businessName  | retrieve a single business by name |       
+| Endpoint                                | FUNCTIONALITY |
+| ----------------------------------------|:-------------:|
+| POST /api/auth/register                 | This will register  the user       |
+| POST /api/auth/login                    | This will login a registered user  |
+| POST /api/auth/logout                   | This will log out a logged in user |
+| POST /api/auth/reset-password           | This will reset the password       | 
+| POST  /api/businesses                   | This will add the business         |
+| PUT /api/businesses/businessId          | This will update the business      | 
+| DELETE /api//businesses/businessId      | This will delete a business        |
+| GET  /api/businesses                    | This will get all businesses       |
+| GET  /api/businesses/businessId         | retrieve a single business by id   |
+| GET  /api/businesses/businessName       | retrieve a single business by name |
+| POST  /api/businesses/businessId/reviews| add a review                  |
+| GET  /api/businesses/businessId/reviews | get all reviews               |       
+       
+       
 
 
 ## Built With
