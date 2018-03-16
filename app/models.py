@@ -185,6 +185,16 @@ class User(object):
 
 
 
+class Review(object):
+
+    review_list=[]
+
+    def __init__(self,description):
+        self.description=description       
+
+
+
+
 
                         
 
