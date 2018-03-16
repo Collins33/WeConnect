@@ -109,6 +109,14 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,404)
 
 
+    def test_api_can_validate_email(self):
+        """this will test if user cannot register with an email
+        that is invalid"""
+        result=self.client().post('/api/v1/auth/register',data={"username":"collins","email":"collinsnjaugmail.com","password":"123456","confirm_password":"123456"})
+        self.assertEqual(result.status_code,400)
+            
+
+
 
 
 
