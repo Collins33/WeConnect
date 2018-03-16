@@ -39,6 +39,9 @@ def create_app(config_name):
             value=User.check_email_exists(email)
             value_name=User.check_name_exists(username)
             validate_password=User.validate_password(password)
+            validate_email=User.validate_email(email)
+            validate_username=User.validate_username(username)
+            validate_password_format=User.validate_password_format(password)
 
             if  value:
 
@@ -58,6 +61,27 @@ def create_app(config_name):
                 response.status_code=400    
                 return response
                 return response.status_code
+
+            elif validate_email:
+                response=jsonify({"message":"Enter a valid email format","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
+            elif validate_username:
+                response=jsonify({"message":"Username must contain characters","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
+            elif validate_password_format:
+                response=jsonify({"message":"Password cannot be empty","status_code":400})
+                response.status_code=400    
+                return response
+                return response.status_code
+
+
+
 
 
             else:

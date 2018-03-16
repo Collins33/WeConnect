@@ -1,4 +1,4 @@
-import random
+import re
 
 class Business(object):
 
@@ -162,6 +162,30 @@ class User(object):
             else:
                 message="Account does not exist"
                 return message
+
+
+    @staticmethod
+    def validate_email(email):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+            return True
+        return False
+
+    @staticmethod
+    def validate_username(username):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]*$",username):
+            return True
+        return False
+
+    @staticmethod
+    def validate_password_format(password):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]*$",password):
+            return True
+        return False
+
+
+
+
+
                         
 
 
