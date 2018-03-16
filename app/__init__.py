@@ -23,7 +23,7 @@ def create_app(config_name):
         response=jsonify({"welcome":message})
         return response
 
-
+    """AUTHENTICATION"""
     #api functionality
     @app.route('/api/v1/auth/register', methods=['POST'])
     def register():
@@ -170,22 +170,7 @@ def create_app(config_name):
             return response.status_code
 
 
-
-                
-            
-                    
-
-
-
-
-     
-
-
-
-
-     
-                    
- 
+    """BUSINESS END POINTS"""
     @app.route('/api/v1/businesses', methods=['POST','GET'])
     def business():
         if request.method == 'POST':
@@ -370,7 +355,17 @@ def create_app(config_name):
                 response.status_code=404
                 return response
                 return response.status_code
+    
 
+
+    """REVIEWS END POINTS"""
+    @app.route('/api/v1/businesses/<int:id>/reviews', methods=['POST'])
+    def add_business(id):
+        """get the id from the url"""
+        description=str(request.data.get('description', ''))
+
+        if description:
+            
 
 
 

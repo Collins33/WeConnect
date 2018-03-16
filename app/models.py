@@ -190,7 +190,17 @@ class Review(object):
     review_list=[]
 
     def __init__(self,description):
-        self.description=description       
+        self.description=description
+        
+    def save_review(self,desctiption):
+        """this method saves a new review"""
+        """it creates a dict and appends it to the 
+        review_list"""
+        new_review={}
+        new_review["review"]=desctiption
+
+        Review.review_list.append(new_review)
+        return new_review           
 
 
 
