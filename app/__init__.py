@@ -374,6 +374,15 @@ def create_app(config_name):
             return response
 
 
+        else:
+            response=jsonify({"message":"enter all details","status_code":400})
+            response.status_code=400
+            return response
+            return response.status_code
+
+
+
+
         
 
 
