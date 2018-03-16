@@ -185,6 +185,31 @@ class User(object):
 
 
 
+class Review(object):
+
+    review_list=[]
+
+    def __init__(self,description):
+        self.description=description
+
+    @staticmethod    
+    def save_review(desctiption):
+        """this method saves a new review"""
+        """it creates a dict and appends it to the 
+        review_list"""
+        new_review={}
+        new_review["review"]=desctiption
+
+        Review.review_list.append(new_review)
+        return new_review 
+
+    @staticmethod
+    def all_reviews():
+        return Review.review_list          
+
+
+
+
 
                         
 

@@ -7,6 +7,7 @@ from flask import request, jsonify, abort,session
 def create_app(config_name):
     from app.models import Business
     from app.models import User
+    from app.models import Review
     #create instance of flaskapi
     app=FlaskAPI(__name__,instance_relative_config=True)
     SESSION_TYPE = 'redis'
@@ -23,7 +24,7 @@ def create_app(config_name):
         response=jsonify({"welcome":message})
         return response
 
-
+    """AUTHENTICATION"""
     #api functionality
     @app.route('/api/v1/auth/register', methods=['POST'])
     def register():
@@ -170,22 +171,7 @@ def create_app(config_name):
             return response.status_code
 
 
-
-                
-            
-                    
-
-
-
-
-     
-
-
-
-
-     
-                    
- 
+    """BUSINESS END POINTS"""
     @app.route('/api/v1/businesses', methods=['POST','GET'])
     def business():
         if request.method == 'POST':
@@ -370,11 +356,37 @@ def create_app(config_name):
                 response.status_code=404
                 return response
                 return response.status_code
+    
 
 
+    """REVIEWS END POINTS"""
+    @app.route('/api/v1/businesses/<int:id>/reviews', methods=['POST'])
+    def add_business(id):
+        """get the id from the url"""
+        description=str(request.data.get('description', ''))
+
+        if description:
+            """create review object"""
+            new_review = Review.save_review(description)
+
+            response=jsonify({"review":new_review,"status_code":201})
+            response.status_code=201
+            return response
 
 
+        else:
+            response=jsonify({"message":"enter all details","status_code":400})
+            response.status_code=400
+            return response
+            return response.status_code
 
+
+    @app.route('/api/v1/businesses/<int:id>/reviews', methods=['GET'])
+    def get_reviews(id):
+        reviews=Review.review_list
+        response=jsonify({"reviews":reviews})
+        response.status_code=201
+        return response        
 
 
     return app
