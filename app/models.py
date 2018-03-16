@@ -201,7 +201,11 @@ class Review(object):
         new_review["review"]=desctiption
 
         Review.review_list.append(new_review)
-        return new_review           
+        return new_review 
+
+    @staticmethod
+    def all_reviews():
+        return Review.review_list          
 
 
 
