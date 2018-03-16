@@ -7,6 +7,7 @@ from flask import request, jsonify, abort,session
 def create_app(config_name):
     from app.models import Business
     from app.models import User
+    from app.models import Review
     #create instance of flaskapi
     app=FlaskAPI(__name__,instance_relative_config=True)
     SESSION_TYPE = 'redis'
@@ -365,7 +366,16 @@ def create_app(config_name):
         description=str(request.data.get('description', ''))
 
         if description:
+            """create review object"""
+            new_review = Review.save_review(description)
+
+            response=jsonify(new_review)
+            response.status_code=201
+            return response
+
             
+
+
 
 
 

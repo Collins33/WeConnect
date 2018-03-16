@@ -191,8 +191,9 @@ class Review(object):
 
     def __init__(self,description):
         self.description=description
-        
-    def save_review(self,desctiption):
+
+    @staticmethod    
+    def save_review(desctiption):
         """this method saves a new review"""
         """it creates a dict and appends it to the 
         review_list"""
