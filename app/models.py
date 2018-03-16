@@ -174,7 +174,14 @@ class User(object):
     def validate_username(username):
         if not re.match(r"^[A-Za-z0-9\.\+_-]*$",username):
             return True
-        return False    
+        return False
+
+    @staticmethod
+    def validate_password_format(password):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]*$",password:
+            return True
+        return False
+
 
 
 
