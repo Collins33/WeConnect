@@ -1,5 +1,4 @@
 {
-  "test_business.py::BusinessTestCase": true,
   "test_business.py::BusinessTestCase::test_api_can_edit_business": true,
   "test_business.py::BusinessTestCase::test_api_can_get_all_businesses": true,
   "test_business.py::BusinessTestCase::test_api_can_get_business_by_id": true,
@@ -9,7 +8,5 @@
   "test_business.py::BusinessTestCase::test_api_cannot_get_nonexistent_by_id": true,
   "test_business.py::BusinessTestCase::test_api_cannot_register_without_all_fields": true,
   "test_business.py::BusinessTestCase::test_api_deletes_business": true,
-  "test_business.py::BusinessTestCase::test_business_creation": true,
-  "test_business_model.py::TestBusiness": true,
-  "test_user.py::UserTestCase": true
+  "test_business.py::BusinessTestCase::test_business_creation": true
 }
