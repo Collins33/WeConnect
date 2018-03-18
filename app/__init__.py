@@ -8,7 +8,7 @@ def create_app(config_name):
     from app.models import Business
     from app.models import User
     from app.models import Review
-    #create instance of flaskapi
+    #create instance of flaskapi in app
     app=FlaskAPI(__name__,instance_relative_config=True)
     SESSION_TYPE = 'redis'
     app.secret_key='my-key'
