@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:$PORT app:app
+web: export APP_SETTINGS="development"; export FLASK_APP="run.py"; flask run
