@@ -1,1 +1,1 @@
-web: python run.py development
+web: flask run
