@@ -5,7 +5,6 @@ from app import create_app
 from app.models import Business,Review
 
 
-
 class ReviewTestCase(unittest.TestCase):
     """the class to test the reviews"""
     """first create business"""
@@ -23,8 +22,6 @@ class ReviewTestCase(unittest.TestCase):
         #data to be used as payload for creating a business and review
         self.business={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
         self.review={"description":"Awesome restaurant with good food and nice servive"}
-
-
 
     def test_api_create_business(self):
         #test if the api can create a business 
@@ -57,31 +54,11 @@ class ReviewTestCase(unittest.TestCase):
         result_get=self.client().get('api/v1/businesses/{}/reviews'.format(res_in_json['id']))
         self.assertEqual(result_get.status_code,201)
 
-
-
-
-
-        
-
-
-
-
-
-
     def tearDown(self):
         #runs after every test
         #makes the business_list  and reviews_list empty
         Business.business_list=[]
         Review.review_list=[]     
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

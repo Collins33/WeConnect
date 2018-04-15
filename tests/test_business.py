@@ -14,19 +14,22 @@ class BusinessTestCase(unittest.TestCase):
         #data to use as test payload
         self.business={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
         self.testBusiness={"name":"wwe","description":"Wrestling business","location":"nairobi","contact":"071234445"}
+    
+
+    def addBusiness(self):
+        """this method adds a business to the datastructure"""
+        res=self.client().post('/api/v1/businesses', data=self.business)
+        return self.assertEqual(res.status_code,201)
 
 
     def test_business_creation(self):
         #test if the api can create a business 
-        res=self.client().post('/api/v1/businesses', data=self.business)
-        self.assertEqual(res.status_code,201)
+        self.addBusiness
         # self.assertIn("Business that sells tropical drinks",str(res.data))
 
     def test_api_can_get_all_businesses(self):
         #tests if the api can get all the businesses
-        res=self.client().post('/api/v1/businesses', data=self.business)
-
-        self.assertEqual(res.status_code,201)
+        self.addBusiness
 
         result=self.client().get('/api/v1/businesses')
 
@@ -35,8 +38,8 @@ class BusinessTestCase(unittest.TestCase):
         # self.assertIn("Business that sells tropical drinks",str(res.data))
 
     def test_api_can_get_business_by_id(self):
-        res=self.client().post('/api/v1/businesses', data=self.business)
-        res.test=self.client().post('/api/v1/businesses', data=self.testBusiness)
+        self.addBusiness
+        res=self.client().post('/api/v1/businesses', data=self.testBusiness)
 
         self.assertEqual(res.status_code,201)
         #convert response to json
@@ -62,10 +65,6 @@ class BusinessTestCase(unittest.TestCase):
         put_request=self.client().put('/api/v1/businesses/{}'.format(result_in_json['id']), data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
 
         self.assertEqual(put_request.status_code,200)
-
-        
-        
-
 
     def test_api_deletes_business(self):
         #test if api can delete a business
@@ -140,15 +139,6 @@ class BusinessTestCase(unittest.TestCase):
 
         #assert the request status
         self.assertEqual(get_request.status_code,200)
-
-
-
-
-
-
-
-
-
 
     def tearDown(self):
         #runs after every test
