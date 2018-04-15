@@ -190,22 +190,30 @@ class Review(object):
     review_list=[]
 
     def __init__(self,description):
-        self.description=description
+        self.description =description
+        
 
     @staticmethod    
-    def save_review(desctiption):
+    def save_review(desctiption,business_id):
         """this method saves a new review"""
         """it creates a dict and appends it to the 
         review_list"""
         new_review={}
         new_review["review"]=desctiption
+        new_review["business"]=business_id
 
         Review.review_list.append(new_review)
         return new_review 
 
     @staticmethod
     def all_reviews():
-        return Review.review_list          
+        return Review.review_list
+
+    @classmethod
+    def business_reviews(cls,id):
+        """this method will return a list of reviews that belong to a specific business"""
+        reviews=[review for review in cls.review_list if review["business"] == id]
+        return reviews          
 
 
 
