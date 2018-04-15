@@ -361,13 +361,13 @@ def create_app(config_name):
 
     """REVIEWS END POINTS"""
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['POST'])
-    def add_business(id):
+    def add_review(id):
         """get the id from the url"""
         description=str(request.data.get('description', ''))
 
         if description:
             """create review object"""
-            new_review = Review.save_review(description)
+            new_review = Review.save_review(description,id)
 
             response=jsonify({"review":new_review,"status_code":201})
             response.status_code=201
