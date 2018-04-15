@@ -45,8 +45,8 @@ WeConnect provides a platform that brings businesses and individuals together. T
 | GET  /api/businesses                    | This will get all businesses       |
 | GET  /api/businesses/businessId         | retrieve a single business by id   |
 | GET  /api/businesses/businessName       | retrieve a single business by name |
-| POST  /api/businesses/businessId/reviews| add a review                  |
-| GET  /api/businesses/businessId/reviews | get all reviews               |       
+| POST  /api/businesses/businessId/reviews| add a review                       |
+| GET  /api/businesses/businessId/reviews | get reviews for a business         |       
        
        
 

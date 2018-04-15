@@ -5,7 +5,6 @@ from app import create_app
 from app.models import Business,Review
 
 
-
 class ReviewTestCase(unittest.TestCase):
     """the class to test the reviews"""
     """first create business"""

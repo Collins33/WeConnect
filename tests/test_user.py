@@ -127,28 +127,9 @@ class UserTestCase(unittest.TestCase):
         result=self.client().post('/api/v1/auth/register',data={"username":"collins","email":"collinsnjau@gmail.com","password":"       ","confirm_password":"       "})
         self.assertEqual(result.status_code,400)   
 
-            
-
-
-
-
-
-
-
-
-
-
-
-
-        
 
     def tearDown(self):
         User.user_list=[]    
-
-
-
-
-
 
 if __name__ == "__main__":
     unittest.main()
