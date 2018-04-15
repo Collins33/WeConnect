@@ -23,7 +23,6 @@ class ReviewTestCase(unittest.TestCase):
         self.business={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
         self.review={"description":"Awesome restaurant with good food and nice servive"}
 
-
     def test_api_create_business(self):
         #test if the api can create a business 
         res=self.client().post('/api/v1/businesses', data=self.business)
