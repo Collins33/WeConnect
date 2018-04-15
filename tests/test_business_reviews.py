@@ -25,7 +25,6 @@ class ReviewTestCase(unittest.TestCase):
         self.review={"description":"Awesome restaurant with good food and nice servive"}
 
 
-
     def test_api_create_business(self):
         #test if the api can create a business 
         res=self.client().post('/api/v1/businesses', data=self.business)
@@ -57,31 +56,11 @@ class ReviewTestCase(unittest.TestCase):
         result_get=self.client().get('api/v1/businesses/{}/reviews'.format(res_in_json['id']))
         self.assertEqual(result_get.status_code,201)
 
-
-
-
-
-        
-
-
-
-
-
-
     def tearDown(self):
         #runs after every test
         #makes the business_list  and reviews_list empty
         Business.business_list=[]
         Review.review_list=[]     
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
