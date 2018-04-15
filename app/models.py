@@ -207,7 +207,13 @@ class Review(object):
 
     @staticmethod
     def all_reviews():
-        return Review.review_list          
+        return Review.review_list
+
+    @classmethod
+    def business_reviews(cls,id):
+        """this method will return a list of reviews that belong to a specific business"""
+        reviews=[review for review in cls.review_list if review["business"] == id]
+        return reviews          
 
 
 
