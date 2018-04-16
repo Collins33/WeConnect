@@ -220,17 +220,17 @@ def create_app(config_name):
         else:
             """if its a get request"""
 
-            Businesses=Business.business_list
-            if len(Businesses) <1:
+            Businesses=Business.get_all_businesses()
+            if not Businesses:
                 message="No business to display.Add a business"
                 response=jsonify({"response":message})
                 response.status_code=204
                 return response
             
-            else:
-                response=jsonify({"Businesses":Businesses})
-                response.status_code=200
-                return response
+            
+            response=jsonify({"Businesses":Businesses})
+            response.status_code=200
+            return response
 
                 
 
