@@ -389,8 +389,9 @@ def create_app(config_name):
 
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['GET'])
     def get_reviews(id):
+        
         reviews=Review.business_reviews(id)
-            
+
         response=jsonify({"reviews":reviews})
         response.status_code=201
         return response        
