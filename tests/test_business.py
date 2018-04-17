@@ -143,12 +143,10 @@ class BusinessTestCase(unittest.TestCase):
 
     def test_retreieve_empty_business_list(self):
         """test if user gets appropriate message if no businesses exist"""
+        Business.business_list=[]
         result=self.client().get('/api/v1/businesses')
 
-        self.assertEqual(result.status_code,204)
-
-
-
+        self.assertEqual(result.status_code,200)
 
 
     def tearDown(self):
