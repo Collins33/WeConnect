@@ -217,13 +217,19 @@ def create_app(config_name):
                 return response
                 return response.status
 
-
-
-
-
         else:
-            Businesses=Business.business_list
-            response=jsonify({"Businesses":Businesses})
+            """if its a get request"""
+
+            Businesses=Business.get_all_businesses()
+            print(Businesses)
+            if not Businesses:
+                message="No business to display.Add a business"
+                response=jsonify({"message":"business does not exist","status":200})
+                response.status_code=200
+                return response
+            
+            
+            response=jsonify({"businesses":Businesses})
             response.status_code=200
             return response
 
@@ -241,7 +247,7 @@ def create_app(config_name):
 
         if request.method == "GET":
             if business_found:     
-                response=jsonify({"Business":business_found})
+                response=jsonify({"business":business_found})
                 response.status_code=200
                 return response
 
@@ -384,6 +390,7 @@ def create_app(config_name):
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['GET'])
     def get_reviews(id):
         reviews=Review.business_reviews(id)
+            
         response=jsonify({"reviews":reviews})
         response.status_code=201
         return response        

@@ -140,6 +140,15 @@ class BusinessTestCase(unittest.TestCase):
         #assert the request status
         self.assertEqual(get_request.status_code,200)
 
+
+    def test_retreieve_empty_business_list(self):
+        """test if user gets appropriate message if no businesses exist"""
+        Business.business_list=[]
+        result=self.client().get('/api/v1/businesses')
+
+        self.assertEqual(result.status_code,200)
+
+
     def tearDown(self):
         #runs after every test
         #makes the business_list empty
