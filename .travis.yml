@@ -11,5 +11,4 @@ script:
    - nosetests --exe -v --with-coverage --cover-package=app
    
 after_success:
-
    - coveralls  
