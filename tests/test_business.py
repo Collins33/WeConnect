@@ -19,6 +19,7 @@ class BusinessTestCase(unittest.TestCase):
         self.business_name_missing={"name":"","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
         self.business_description_missing={"name":"tropics","description":"","location":"nairobi","contact":"071234445"}
         self.business_location_missing={"name":"tropics","description":"Business that sells tropical drinks","location":"","contact":"071234445"}
+        self.business_contact_missing={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":""}
 
         
     
@@ -162,6 +163,12 @@ class BusinessTestCase(unittest.TestCase):
         res=self.client().post('/api/v1/businesses',data=self.business_location_missing)
         self.assertEqual(res.status_code,400)
         self.assertIn('business location is missing',str(res.data))
+
+    def test_api_gives_error_contact_missing(self):
+        res=self.client().post('/api/v1/businesses',data=self.business_contact_missing)
+        self.assertEqual(res.status_code,400)
+        self.assertIn('business contact is missing',str(res.data))
+
 
 
 
