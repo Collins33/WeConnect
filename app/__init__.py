@@ -214,8 +214,17 @@ def create_app(config_name):
                 return response
                 return response.status
 
+            elif not description:
+                response=jsonify({"message":"description missing","status_code":400})
+                response.status_code=400
+                return response
+                return response.status
+
+
+
+
             else:
-                response=jsonify({"message":"name is missing","status_code":400})
+                response=jsonify({"message":"missing","status_code":400})
                 response.status_code=400
                 return response
                 return response.status
