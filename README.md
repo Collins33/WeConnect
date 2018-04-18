@@ -68,7 +68,7 @@ WeConnect provides a platform that brings businesses and individuals together. T
 
 ## License
 
-This project is licensed under the MIT License ]
+This project is licensed under the MIT License
 
 
 
