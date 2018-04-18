@@ -14,6 +14,12 @@ class BusinessTestCase(unittest.TestCase):
         #data to use as test payload
         self.business={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
         self.testBusiness={"name":"wwe","description":"Wrestling business","location":"nairobi","contact":"071234445"}
+
+        #data for testing response when a field is missing
+        self.business_name_missing={"name":"","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
+        self.business_description_missing={"name":"tropics","description":"","location":"nairobi","contact":"071234445"}
+
+        
     
 
     def addBusiness(self):
@@ -142,9 +148,14 @@ class BusinessTestCase(unittest.TestCase):
 
 
     def test_api_gives_error_name_missing(self):
-        res=self.client().post('/api/v1/businesses', data={"name":"tropics","contact":"09385789"})
+        res=self.client().post('/api/v1/businesses', data=self.business_name_missing)
         self.assertEqual(res.status_code,400)
-        self.assertIn('name is missing',str(res.data))    
+        self.assertIn('name is missing',str(res.data))
+
+    def test_api_gives_error_description_missing(self):
+        res=self.client().post('/api/v1/businesses',data=self.business_description_missing)
+        self.assertEqual(res.status_code,400)
+        self.assertIn('description missing',str(res.data))        
 
 
     
