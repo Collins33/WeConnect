@@ -7,8 +7,8 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
   
-script:
-  
+script:  
+   - nosetests --exe -v --with-coverage --cover-package=app
    - coveralls
 after_success:
 
