@@ -1,17 +1,11 @@
 language: python
-python:
-  - "3.6"
-install:
-  - pip install nose
+  python:
+    - "3.6"
+
+  install: 
   - pip install -r requirements.txt
   - pip install coveralls
-script: 
-  - nosetests --exe -v --with-coverage --cover-package=app
+  script:
+    - nosetests --with-coverage --cover-package=api
+  after_success: 
   - coveralls
-after_success:
- - coveralls
-notifications:
-  slack:
-    on_success: never
-    on_failure: never
-  email: false
