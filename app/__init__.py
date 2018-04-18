@@ -202,20 +202,24 @@ def create_app(config_name):
                 else:
                     """create business object"""
                     business=Business(name=name,description=description,location=location,contact=contact)
-                    
-                    new_business=business.save_business(name,description,location,contact)
-
-                    
+                    new_business=business.save_business(name,description,location,contact)                    
                     response=jsonify(new_business)
                     response.status_code=201
 
                     return response
 
-            else:
-                response=jsonify({"message":"enter all details","status_code":400})
+            elif not name:
+                response=jsonify({"message":"name is missing","status_code":400})
                 response.status_code=400
                 return response
                 return response.status
+
+            else:
+                response=jsonify({"message":"name is missing","status_code":400})
+                response.status_code=400
+                return response
+                return response.status
+
 
         else:
             """if its a get request"""

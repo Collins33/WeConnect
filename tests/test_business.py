@@ -141,12 +141,13 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(get_request.status_code,200)
 
 
-    def test_retreieve_empty_business_list(self):
-        """test if user gets appropriate message if no businesses exist"""
-        Business.business_list=[]
-        result=self.client().get('/api/v1/businesses')
+    def test_api_gives_error_name_missing(self):
+        res=self.client().post('/api/v1/businesses', data={"name":"tropics","contact":"09385789"})
+        self.assertEqual(res.status_code,400)
+        self.assertIn('name is missing',str(res.data))    
 
-        self.assertEqual(result.status_code,200)
+
+    
 
 
     def tearDown(self):
