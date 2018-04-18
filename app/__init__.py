@@ -227,11 +227,8 @@ def create_app(config_name):
                 return response.status
 
 
-
-
-
             else:
-                response=jsonify({"message":"missing","status_code":400})
+                response=jsonify({"message":"business contact is missing","status_code":400})
                 response.status_code=400
                 return response
                 return response.status
