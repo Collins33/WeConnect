@@ -14,6 +14,14 @@ class BusinessTestCase(unittest.TestCase):
         #data to use as test payload
         self.business={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
         self.testBusiness={"name":"wwe","description":"Wrestling business","location":"nairobi","contact":"071234445"}
+
+        #data for testing response when a field is missing
+        self.business_name_missing={"name":"","description":"Business that sells tropical drinks","location":"nairobi","contact":"071234445"}
+        self.business_description_missing={"name":"tropics","description":"","location":"nairobi","contact":"071234445"}
+        self.business_location_missing={"name":"tropics","description":"Business that sells tropical drinks","location":"","contact":"071234445"}
+        self.business_contact_missing={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":""}
+
+        
     
 
     def addBusiness(self):
@@ -141,12 +149,30 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(get_request.status_code,200)
 
 
-    def test_retreieve_empty_business_list(self):
-        """test if user gets appropriate message if no businesses exist"""
-        Business.business_list=[]
-        result=self.client().get('/api/v1/businesses')
+    def test_api_gives_error_name_missing(self):
+        res=self.client().post('/api/v1/businesses', data=self.business_name_missing)
+        self.assertEqual(res.status_code,400)
+        self.assertIn('name is missing',str(res.data))
 
-        self.assertEqual(result.status_code,200)
+    def test_api_gives_error_description_missing(self):
+        res=self.client().post('/api/v1/businesses',data=self.business_description_missing)
+        self.assertEqual(res.status_code,400)
+        self.assertIn('description missing',str(res.data))
+
+    def test_api_gives_error_location_missing(self):
+        res=self.client().post('/api/v1/businesses',data=self.business_location_missing)
+        self.assertEqual(res.status_code,400)
+        self.assertIn('business location is missing',str(res.data))
+
+    def test_api_gives_error_contact_missing(self):
+        res=self.client().post('/api/v1/businesses',data=self.business_contact_missing)
+        self.assertEqual(res.status_code,400)
+        self.assertIn('business contact is missing',str(res.data))
+
+
+
+
+    
 
 
     def tearDown(self):
