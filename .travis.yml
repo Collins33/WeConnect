@@ -1,14 +1,17 @@
 language: python
 python:
   - "3.6"
-cache: pip
 install:
   - pip install nose
   - pip install -r requirements.txt
   - pip install coveralls
-  
-script:  
-   - nosetests --exe -v --with-coverage --cover-package=app
-   
+script: 
+  - nosetests --exe -v --with-coverage --cover-package=app
+  - coveralls
 after_success:
-   - coveralls  
+ - coveralls
+notifications:
+  slack:
+    on_success: never
+    on_failure: never
+  email: false
