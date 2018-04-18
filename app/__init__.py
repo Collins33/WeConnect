@@ -220,6 +220,13 @@ def create_app(config_name):
                 return response
                 return response.status
 
+            elif not location:
+                response=jsonify({"message":"business location is missing","status_code":400})
+                response.status_code=400
+                return response
+                return response.status
+
+
 
 
 
