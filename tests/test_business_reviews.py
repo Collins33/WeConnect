@@ -11,6 +11,8 @@ class ReviewTestCase(unittest.TestCase):
     """get the business id"""
     """use it to create the review"""
 
+    business_review_url='api/v1/businesses/{}/reviews'
+
     def setUp(self):
         """this test will run before every test"""
 
@@ -36,7 +38,7 @@ class ReviewTestCase(unittest.TestCase):
         #get the id of the created business
         res_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
         #make post request to add review
-        result=self.client().post('api/v1/businesses/{}/reviews'.format(res_in_json['id']), data=self.review)
+        result=self.client().post(ReviewTestCase.business_review_url.format(res_in_json['id']), data=self.review)
         self.assertEqual(result.status_code,201)
 
 
@@ -47,11 +49,11 @@ class ReviewTestCase(unittest.TestCase):
         #get the id of the created business
         res_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
         #make post request to add review
-        result=self.client().post('api/v1/businesses/{}/reviews'.format(res_in_json['id']), data=self.review)
+        result=self.client().post(ReviewTestCase.business_review_url.format(res_in_json['id']), data=self.review)
         self.assertEqual(result.status_code,201)
 
         #make get request to get all reviews
-        result_get=self.client().get('api/v1/businesses/{}/reviews'.format(res_in_json['id']))
+        result_get=self.client().get(ReviewTestCase.business_review_url.format(res_in_json['id']))
         self.assertEqual(result_get.status_code,201)
 
     def tearDown(self):
