@@ -14,6 +14,7 @@ class UserTestCase(unittest.TestCase):
 
     user_register='/api/v1/auth/register'
     user_login='/api/v1/auth/login'
+    user_reset='/api/v1/auth/reset-password'
 
     def setUp(self):
         """ this method runs after every test
@@ -84,7 +85,7 @@ class UserTestCase(unittest.TestCase):
         result=self.client().post(UserTestCase.user_register, data=self.user)
         self.assertEqual(result.status_code,200)
 
-        res=self.client().post('/api/v1/auth/reset-password', data=self.reset)
+        res=self.client().post(UserTestCase.user_reset, data=self.reset)
         self.assertEqual(res.status_code,200)
 
     def test_api_cannot_reset_password_confirm_not_match(self):
@@ -95,7 +96,7 @@ class UserTestCase(unittest.TestCase):
         result=self.client().post(UserTestCase.user_register, data=self.user)
         self.assertEqual(result.status_code,200)
 
-        res=self.client().post('/api/v1/auth/reset-password', data={"email":"collinsnjau39@gmail.com","password":"987654","confirm_password":"9876543"})
+        res=self.client().post(UserTestCase.user_reset, data={"email":"collinsnjau39@gmail.com","password":"987654","confirm_password":"9876543"})
         self.assertEqual(res.status_code,409)
 
 
@@ -108,7 +109,7 @@ class UserTestCase(unittest.TestCase):
         result=self.client().post(UserTestCase.user_register, data=self.user)
         self.assertEqual(result.status_code,200)
 
-        res=self.client().post('/api/v1/auth/reset-password', data={"email":"collinsnjau100@gmail.com","password":"987654","confirm_password":"987654"})
+        res=self.client().post(UserTestCase.user_reset, data={"email":"collinsnjau100@gmail.com","password":"987654","confirm_password":"987654"})
         self.assertEqual(res.status_code,404)
 
 
