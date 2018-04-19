@@ -7,6 +7,7 @@ from app.models import Business
 class BusinessTestCase(unittest.TestCase):
 
     business_url='/api/v1/businesses'
+    business_id_url='/api/v1/businesses/{}'
 
     def setUp(self):
         #initialize our app with the testing configuration
@@ -56,7 +57,7 @@ class BusinessTestCase(unittest.TestCase):
         result_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
 
         #make get request and add the id
-        get_request=self.client().get('/api/v1/businesses/{}'.format(result_in_json['id']))
+        get_request=self.client().get(BusinessTestCase.business_id_url.format(result_in_json['id']))
 
         #assert the request status
         self.assertEqual(get_request.status_code,200)
@@ -72,7 +73,7 @@ class BusinessTestCase(unittest.TestCase):
 
         #make a put request
         #this edits the current business
-        put_request=self.client().put('/api/v1/businesses/{}'.format(result_in_json['id']), data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
+        put_request=self.client().put(BusinessTestCase.business_id_url.format(result_in_json['id']), data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
 
         self.assertEqual(put_request.status_code,200)
 
@@ -85,11 +86,11 @@ class BusinessTestCase(unittest.TestCase):
         result_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
         
         #delete and pass in the id
-        result=self.client().delete('/api/v1/businesses/{}'.format(result_in_json['id']))
+        result=self.client().delete(BusinessTestCase.business_id_url.format(result_in_json['id']))
 
         # self.assertEqual(result.status_code,200)
         #try to run get request for deleted business
-        deleted_business=self.client().get('/api/v1/businesses/{}'.format(result_in_json['id']))
+        deleted_business=self.client().get(BusinessTestCase.business_id_url.format(result_in_json['id']))
         
         #should return 404
         self.assertEqual(deleted_business.status_code,404)
@@ -145,7 +146,7 @@ class BusinessTestCase(unittest.TestCase):
         result_in_json=json.loads(res.data.decode('utf-8').replace("'", "\""))
 
         #make get request and add the id
-        get_request=self.client().get('/api/v1/businesses/{}'.format(result_in_json['name']))
+        get_request=self.client().get(BusinessTestCase.business_id_url.format(result_in_json['name']))
 
         #assert the request status
         self.assertEqual(get_request.status_code,200)
