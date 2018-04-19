@@ -13,6 +13,7 @@ class UserTestCase(unittest.TestCase):
     """class for testing the user"""
 
     user_register='/api/v1/auth/register'
+    user_login='/api/v1/auth/login'
 
     def setUp(self):
         """ this method runs after every test
@@ -51,7 +52,7 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(result.status_code,200)
 
         """user logs in"""
-        res=self.client().post('/api/v1/auth/login', data=self.login)
+        res=self.client().post(UserTestCase.user_login, data=self.login)
         self.assertEqual(res.status_code,200)
 
 
@@ -60,7 +61,7 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(result.status_code,400)
 
     def test_api_cannot_login_user_with_fields_missing(self):
-        result=self.client().post('/api/v1/auth/login',data={"username":"collins"})
+        result=self.client().post(UserTestCase.user_login,data={"username":"collins"})
         self.assertEqual(result.status_code,400)
 
     def test_api_cannot_create_account_with_username_exists(self):
