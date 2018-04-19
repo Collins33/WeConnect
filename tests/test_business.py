@@ -6,6 +6,8 @@ from app.models import Business
 
 class BusinessTestCase(unittest.TestCase):
 
+    business_url='/api/v1/businesses'
+
     def setUp(self):
         #initialize our app with the testing configuration
         self.app=create_app(config_name="testing")
@@ -26,7 +28,7 @@ class BusinessTestCase(unittest.TestCase):
 
     def addBusiness(self):
         """this method adds a business to the datastructure"""
-        res=self.client().post('/api/v1/businesses', data=self.business)
+        res=self.client().post(BusinessTestCase.business_url, data=self.business)
         return self.assertEqual(res.status_code,201)
 
 
@@ -39,7 +41,7 @@ class BusinessTestCase(unittest.TestCase):
         #tests if the api can get all the businesses
         self.addBusiness
 
-        result=self.client().get('/api/v1/businesses')
+        result=self.client().get(BusinessTestCase.business_url)
 
         self.assertEqual(result.status_code,200)
 
@@ -47,7 +49,7 @@ class BusinessTestCase(unittest.TestCase):
 
     def test_api_can_get_business_by_id(self):
         self.addBusiness
-        res=self.client().post('/api/v1/businesses', data=self.testBusiness)
+        res=self.client().post(BusinessTestCase.business_url, data=self.testBusiness)
 
         self.assertEqual(res.status_code,201)
         #convert response to json
@@ -62,7 +64,7 @@ class BusinessTestCase(unittest.TestCase):
     def test_api_can_edit_business(self):
 
         #tests if a the api can get a business and edit it 
-        res=self.client().post('/api/v1/businesses', data=self.business)
+        res=self.client().post(BusinessTestCase.business_url, data=self.business)
 
         self.assertEqual(res.status_code,201)
         #convert response into json so as to get the id
@@ -76,7 +78,7 @@ class BusinessTestCase(unittest.TestCase):
 
     def test_api_deletes_business(self):
         #test if api can delete a business
-        res=self.client().post('/api/v1/businesses', data=self.business)
+        res=self.client().post(BusinessTestCase.business_url, data=self.business)
 
         self.assertEqual(res.status_code,201)
         #convert response into json so as to get the id
@@ -94,18 +96,18 @@ class BusinessTestCase(unittest.TestCase):
 
 
     def test_api_cannot_register_without_all_fields(self):
-        res=self.client().post('/api/v1/businesses', data={"name":"tropics","contact":"09385789"})
+        res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","contact":"09385789"})
         self.assertEqual(res.status_code,400)
 
     def test_api_cannot_get_nonexistent_by_id(self):
-        res=self.client().post('/api/v1/businesses', data=self.business)
+        res=self.client().post(BusinessTestCase.business_url, data=self.business)
         self.assertEqual(res.status,'201 CREATED' )
 
         result=self.client().get('/api/v1/businesses/10')
         self.assertEqual(result.status_code,404)
 
     def test_api_cannot_delete_nonexistent_business(self):
-        res=self.client().post('/api/v1/businesses', data=self.business)
+        res=self.client().post(BusinessTestCase.business_url, data=self.business)
         self.assertEqual(res.status_code,201)
 
         #try to edit first business
@@ -120,23 +122,23 @@ class BusinessTestCase(unittest.TestCase):
 
 
     def test_api_cannot_create_business_name_exist(self):
-        result=self.client().post('/api/v1/businesses', data=self.business)
+        result=self.client().post(BusinessTestCase.business_url, data=self.business)
         self.assertEqual(result.status_code,201)
 
-        res=self.client().post('/api/v1/businesses', data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
+        res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
         self.assertEqual(res.status_code,400)
 
 
     def test_api_cannot_create_business_contact_exist(self):
-        result=self.client().post('/api/v1/businesses', data=self.business)
+        result=self.client().post(BusinessTestCase.business_url, data=self.business)
         self.assertEqual(result.status_code,201)
 
-        res=self.client().post('/api/v1/businesses', data={"name":"tropical","description":"Business that sells drinks","location":"nairobi","contact":"071234445"})
+        res=self.client().post(BusinessTestCase.business_url, data={"name":"tropical","description":"Business that sells drinks","location":"nairobi","contact":"071234445"})
         self.assertEqual(res.status_code,400)
     
     def test_api_can_get_business_by_name(self):
-        res=self.client().post('/api/v1/businesses', data=self.business)
-        res.test=self.client().post('/api/v1/businesses', data=self.testBusiness)
+        res=self.client().post(BusinessTestCase.business_url, data=self.business)
+        res.test=self.client().post(BusinessTestCase.business_url, data=self.testBusiness)
 
         self.assertEqual(res.status_code,201)
         #convert response to json
@@ -150,22 +152,22 @@ class BusinessTestCase(unittest.TestCase):
 
 
     def test_api_gives_error_name_missing(self):
-        res=self.client().post('/api/v1/businesses', data=self.business_name_missing)
+        res=self.client().post(BusinessTestCase.business_url, data=self.business_name_missing)
         self.assertEqual(res.status_code,400)
         self.assertIn('name is missing',str(res.data))
 
     def test_api_gives_error_description_missing(self):
-        res=self.client().post('/api/v1/businesses',data=self.business_description_missing)
+        res=self.client().post(BusinessTestCase.business_url,data=self.business_description_missing)
         self.assertEqual(res.status_code,400)
         self.assertIn('description missing',str(res.data))
 
     def test_api_gives_error_location_missing(self):
-        res=self.client().post('/api/v1/businesses',data=self.business_location_missing)
+        res=self.client().post(BusinessTestCase.business_url,data=self.business_location_missing)
         self.assertEqual(res.status_code,400)
         self.assertIn('business location is missing',str(res.data))
 
     def test_api_gives_error_contact_missing(self):
-        res=self.client().post('/api/v1/businesses',data=self.business_contact_missing)
+        res=self.client().post(BusinessTestCase.business_url,data=self.business_contact_missing)
         self.assertEqual(res.status_code,400)
         self.assertIn('business contact is missing',str(res.data))
 
