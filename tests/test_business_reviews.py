@@ -57,6 +57,16 @@ class ReviewTestCase(unittest.TestCase):
         self.assertIn("Awesome restaurant with good food and nice servive",str(result_get.data))
 
 
+    def test_api_add_review_business_nonexistent(self):
+        """this tests if you can add a review for a business that does not exist"""
+        self.create_business()
+        business_review=self.client().post(ReviewTestCase.business_review_url.format("1"), data=self.review)
+        self.assertEqual(business_review.status_code,201)
+
+        second_review=self.client().post(ReviewTestCase.business_review_url.format("1"), data=self.review)
+        self.assertEqual(second_review.status_code,404)   
+
+
     def tearDown(self):
         #runs after every test
         #makes the business_list  and reviews_list empty
