@@ -63,7 +63,7 @@ class ReviewTestCase(unittest.TestCase):
         business_review=self.client().post(ReviewTestCase.business_review_url.format("1"), data=self.review)
         self.assertEqual(business_review.status_code,201)
 
-        second_review=self.client().post(ReviewTestCase.business_review_url.format("1"), data=self.review)
+        second_review=self.client().post(ReviewTestCase.business_review_url.format("3"), data=self.review)
         self.assertEqual(second_review.status_code,404)   
 
 
