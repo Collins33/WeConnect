@@ -240,7 +240,7 @@ def create_app(config_name):
             Businesses=Business.get_all_businesses()
             print(Businesses)
             if not Businesses:
-                message="No business to display.Add a business"
+                
                 response=jsonify({"message":"business does not exist","status":200})
                 response.status_code=200
                 return response
@@ -324,7 +324,7 @@ def create_app(config_name):
             response=jsonify({"message":"business does not exist","status":404})
             response.status_code=404
             return response
-            return response.status_code
+            
 
 
         if request.method == "GET":
@@ -361,7 +361,7 @@ def create_app(config_name):
                 response=jsonify({"message":"Cannot update business that does not exist","status":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
 
 
         else:
@@ -376,7 +376,7 @@ def create_app(config_name):
                 response=jsonify({"message":"Cannot delete business that does not exist","status":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
     
 
 
@@ -405,13 +405,20 @@ def create_app(config_name):
             response=jsonify({"message":"enter all details","status_code":400})
             response.status_code=400
             return response
-            return response.status_code
+            
 
 
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['GET'])
     def get_reviews(id):
         
+        business_found= Business.find_business_id(id)
         reviews=Review.business_reviews(id)
+        
+        if not business_found:
+            response=jsonify({"message":"cannot add review to business that does not exist","status_code":404})
+            response.status_code=404
+            return response
+
 
         response=jsonify({"reviews":reviews})
         response.status_code=201
