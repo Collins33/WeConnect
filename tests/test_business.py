@@ -71,7 +71,7 @@ class BusinessTestCase(unittest.TestCase):
         get_request=self.client().get(BusinessTestCase.business_id_url.format(result_in_json['id']))
 
         #assert the request status
-        self.assertEqual(get_request.status_code,200)
+        self.assertIn("Wrestling business",str(get_request.data))
 
     def test_api_can_edit_business(self):
 
