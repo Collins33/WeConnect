@@ -241,8 +241,13 @@ def create_app(config_name):
             print(Businesses)
             if not Businesses:
                 
+
+                response=jsonify({"message":"business does not exist","status":200})
+                response.status_code=200
+
                 response=jsonify({"message":"business does not exist","status":400})
                 response.status_code=400
+
                 return response
             
             
@@ -293,7 +298,11 @@ def create_app(config_name):
                 response=jsonify({"message":"Cannot update business that does not exist","status":404})
                 response.status_code=404
                 return response
+
+    
+
                 
+
 
 
         else:
@@ -323,7 +332,11 @@ def create_app(config_name):
             response=jsonify({"message":"business does not exist","status":404})
             response.status_code=404
             return response
+
+            
+
         
+
 
 
         if request.method == "GET":
@@ -383,7 +396,13 @@ def create_app(config_name):
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['POST'])
     def add_review(id):
         """get the id from the url"""
+        business_found= Business.find_business_id(id)
         description=str(request.data.get('description', ''))
+
+        if not business_found:
+            response=jsonify({"message":"cannot add review to business that does not exist","status_code":404})
+            response.status_code=404
+            return response
 
         if description:
             """create review object"""
@@ -404,7 +423,14 @@ def create_app(config_name):
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['GET'])
     def get_reviews(id):
         
+        business_found= Business.find_business_id(id)
         reviews=Review.business_reviews(id)
+        
+        if not business_found:
+            response=jsonify({"message":"cannot add review to business that does not exist","status_code":404})
+            response.status_code=404
+            return response
+
 
         response=jsonify({"reviews":reviews})
         response.status_code=201
