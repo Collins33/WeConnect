@@ -30,12 +30,14 @@ class BusinessTestCase(unittest.TestCase):
     def addBusiness(self):
         """this method adds a business to the datastructure"""
         res=self.client().post(BusinessTestCase.business_url, data=self.business)
-        return self.assertEqual(res.status_code,201)
+        return res
 
 
-    def test_business_creation(self):
-        #test if the api can create a business 
-        self.addBusiness
+    # def test_business_creation(self):
+    #     #test if the api can create a business 
+    #     add_result=self.addBusiness
+
+    #     self.assertEqual(add_result.status_code,200)
         # self.assertIn("Business that sells tropical drinks",str(res.data))
 
     def test_api_can_get_all_businesses(self):
