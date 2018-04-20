@@ -33,12 +33,12 @@ class BusinessTestCase(unittest.TestCase):
        
 
 
-    # def test_business_creation(self):
-    #     #test if the api can create a business 
-    #     add_result=self.addBusiness
+    def test_business_creation(self):
+        #test if the api can create a business 
+        add_business=self.client().post(BusinessTestCase.business_url,data=self.business)
 
-    #     self.assertEqual(add_result.status_code,200)
-        # self.assertIn("Business that sells tropical drinks",str(res.data))
+        self.assertEqual(add_business.status_code,201)
+        self.assertIn("Business that sells tropical drinks",str(add_business.data))
 
     def test_api_can_get_all_businesses(self):
         #tests if the api can get all the businesses
