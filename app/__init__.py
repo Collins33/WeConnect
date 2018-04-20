@@ -241,8 +241,8 @@ def create_app(config_name):
             print(Businesses)
             if not Businesses:
                 
-                response=jsonify({"message":"business does not exist","status":200})
-                response.status_code=200
+                response=jsonify({"message":"business does not exist","status":400})
+                response.status_code=400
                 return response
             
             

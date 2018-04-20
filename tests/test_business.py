@@ -26,11 +26,11 @@ class BusinessTestCase(unittest.TestCase):
 
         
     
-
+    
     def addBusiness(self):
         """this method adds a business to the datastructure"""
-        res=self.client().post(BusinessTestCase.business_url, data=self.business)
-        return res
+        return self.client().post(BusinessTestCase.business_url, data=self.business)
+       
 
 
     # def test_business_creation(self):
@@ -42,13 +42,22 @@ class BusinessTestCase(unittest.TestCase):
 
     def test_api_can_get_all_businesses(self):
         #tests if the api can get all the businesses
-        self.addBusiness
+        self.addBusiness()
+        
 
         result=self.client().get(BusinessTestCase.business_url)
 
         self.assertEqual(result.status_code,200)
+        
 
-        # self.assertIn("Business that sells tropical drinks",str(res.data))
+        self.assertIn("Business that sells tropical drinks",str(result.data))
+
+
+    def test_api_return_right_response_if_no_business_found(self):
+        result=self.client().get(BusinessTestCase.business_url)
+        self.assertEqual(result.status_code,400)
+        self.assertIn("business does not exist",str(result.data))
+
 
     def test_api_can_get_business_by_id(self):
         self.addBusiness
@@ -173,12 +182,6 @@ class BusinessTestCase(unittest.TestCase):
         res=self.client().post(BusinessTestCase.business_url,data=self.business_contact_missing)
         self.assertEqual(res.status_code,400)
         self.assertIn('business contact is missing',str(res.data))
-
-
-
-
-    
-
 
     def tearDown(self):
         #runs after every test
