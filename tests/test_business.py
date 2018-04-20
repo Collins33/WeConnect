@@ -26,29 +26,38 @@ class BusinessTestCase(unittest.TestCase):
 
         
     
-
+    
     def addBusiness(self):
         """this method adds a business to the datastructure"""
-        res=self.client().post(BusinessTestCase.business_url, data=self.business)
-        return res
+        return self.client().post(BusinessTestCase.business_url, data=self.business)
+       
 
 
-    # def test_business_creation(self):
-    #     #test if the api can create a business 
-    #     add_result=self.addBusiness
+    def test_business_creation(self):
+        #test if the api can create a business 
+        add_business=self.client().post(BusinessTestCase.business_url,data=self.business)
 
-    #     self.assertEqual(add_result.status_code,200)
-        # self.assertIn("Business that sells tropical drinks",str(res.data))
+        self.assertEqual(add_business.status_code,201)
+        self.assertIn("Business that sells tropical drinks",str(add_business.data))
 
     def test_api_can_get_all_businesses(self):
         #tests if the api can get all the businesses
-        self.addBusiness
+        self.addBusiness()
+        
 
         result=self.client().get(BusinessTestCase.business_url)
 
         self.assertEqual(result.status_code,200)
+        
 
-        # self.assertIn("Business that sells tropical drinks",str(res.data))
+        self.assertIn("Business that sells tropical drinks",str(result.data))
+
+
+    def test_api_return_right_response_if_no_business_found(self):
+        result=self.client().get(BusinessTestCase.business_url)
+        self.assertEqual(result.status_code,400)
+        self.assertIn("business does not exist",str(result.data))
+
 
     def test_api_can_get_business_by_id(self):
         self.addBusiness
@@ -62,7 +71,7 @@ class BusinessTestCase(unittest.TestCase):
         get_request=self.client().get(BusinessTestCase.business_id_url.format(result_in_json['id']))
 
         #assert the request status
-        self.assertEqual(get_request.status_code,200)
+        self.assertIn("Wrestling business",str(get_request.data))
 
     def test_api_can_edit_business(self):
 
@@ -77,7 +86,7 @@ class BusinessTestCase(unittest.TestCase):
         #this edits the current business
         put_request=self.client().put(BusinessTestCase.business_id_url.format(result_in_json['id']), data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
 
-        self.assertEqual(put_request.status_code,200)
+        self.assertIn("Business that sells tropical guns",str(put_request.data))
 
     def test_api_deletes_business(self):
         #test if api can delete a business
@@ -103,20 +112,18 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,400)
 
     def test_api_cannot_get_nonexistent_by_id(self):
-        res=self.client().post(BusinessTestCase.business_url, data=self.business)
-        self.assertEqual(res.status,'201 CREATED' )
-
+        self.addBusiness()
         result=self.client().get('/api/v1/businesses/10')
         self.assertEqual(result.status_code,404)
 
     def test_api_cannot_delete_nonexistent_business(self):
-        res=self.client().post(BusinessTestCase.business_url, data=self.business)
-        self.assertEqual(res.status_code,201)
+        self.addBusiness()
 
         #try to edit first business
         put_request=self.client().put('/api/v1/businesses/1', data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
 
         self.assertEqual(put_request.status_code,200)
+        self.assertIn("Business that sells tropical guns",str(put_request.data))
         
         #try to edit non existent business
         put_request=self.client().put('/api/v1/businesses/10', data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
@@ -125,9 +132,7 @@ class BusinessTestCase(unittest.TestCase):
 
 
     def test_api_cannot_create_business_name_exist(self):
-        result=self.client().post(BusinessTestCase.business_url, data=self.business)
-        self.assertEqual(result.status_code,201)
-
+        self.addBusiness()
         res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
         self.assertEqual(res.status_code,400)
 
@@ -173,12 +178,6 @@ class BusinessTestCase(unittest.TestCase):
         res=self.client().post(BusinessTestCase.business_url,data=self.business_contact_missing)
         self.assertEqual(res.status_code,400)
         self.assertIn('business contact is missing',str(res.data))
-
-
-
-
-    
-
 
     def tearDown(self):
         #runs after every test

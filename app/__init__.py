@@ -10,7 +10,7 @@ def create_app(config_name):
     from app.models import Review
     #create instance of flaskapi in app
     app=FlaskAPI(__name__,instance_relative_config=True)
-    SESSION_TYPE = 'redis'
+    
     app.secret_key='my-key'
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
@@ -49,37 +49,37 @@ def create_app(config_name):
                 response=jsonify({"message":"email already exists","status_code":400})
                 response.status_code=400    
                 return response
-                return response.status_code
+                
 
             elif value_name:
                 response=jsonify({"message":"username already exists","status_code":400})
                 response.status_code=400    
                 return response
-                return response.status_code
+                
 
             elif validate_password:
                 response=jsonify({"message":"password must be longer than 6 characters","status_code":400})
                 response.status_code=400    
                 return response
-                return response.status_code
+                
 
             elif validate_email:
                 response=jsonify({"message":"Enter a valid email format","status_code":400})
                 response.status_code=400    
                 return response
-                return response.status_code
+                
 
             elif validate_username:
                 response=jsonify({"message":"Username must contain characters","status_code":400})
                 response.status_code=400    
                 return response
-                return response.status_code
+               
 
             elif validate_password_format:
                 response=jsonify({"message":"Password cannot be empty","status_code":400})
                 response.status_code=400    
                 return response
-                return response.status_code
+                
 
 
 
@@ -93,13 +93,13 @@ def create_app(config_name):
                 """response.status_code=201"""
                 
                 return response
-                return response.status_code
+                
 
         else:
             response=jsonify({"message":"enter all details","status_code":400})
             response.status_code=400
             return response
-            return response.status_code
+            
 
 
 
@@ -120,7 +120,7 @@ def create_app(config_name):
             response=jsonify({"message":"enter all details","status_code":400})
             response.status_code=400
             return response
-            return response.status_code
+            
 
 
 
@@ -148,27 +148,27 @@ def create_app(config_name):
                 response=jsonify({"message":"password reset successfully","status_code":200})
                 response.status_code=200
                 return response
-                return response.status_code
+                
 
             elif response_message=="Password and confirm password must be the same":
                 response=jsonify({"message":"password and confirm must be the same","status_code":409})
                 response.status_code=409
                 return response
-                return response.status_code
+                
 
 
             elif response_message ==  "Account does not exist":
                 response=jsonify({"message":"password and confirm must be the same","status_code":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
 
 
         else:
             response=jsonify({"message":"enter all details","status_code":400})
             response.status_code=400
             return response
-            return response.status_code
+            
 
 
     """BUSINESS END POINTS"""
@@ -190,13 +190,13 @@ def create_app(config_name):
                     response=jsonify({"message":"Business name already exists","status_code":400})
                     response.status_code=400    
                     return response
-                    return response.status_code
+                    
 
                 elif validateContact:
                     response=jsonify({"message":"Business contact already exists use different contact","status_code":400})
                     response.status_code=400  
                     return response
-                    return response.status_code
+                    
 
                 
                 else:
@@ -212,26 +212,26 @@ def create_app(config_name):
                 response=jsonify({"message":"name is missing","status_code":400})
                 response.status_code=400
                 return response
-                return response.status
+                
 
             elif not description:
                 response=jsonify({"message":"description missing","status_code":400})
                 response.status_code=400
                 return response
-                return response.status
+                
 
             elif not location:
                 response=jsonify({"message":"business location is missing","status_code":400})
                 response.status_code=400
                 return response
-                return response.status
+                
 
 
             else:
                 response=jsonify({"message":"business contact is missing","status_code":400})
                 response.status_code=400
                 return response
-                return response.status
+                
 
 
         else:
@@ -240,9 +240,9 @@ def create_app(config_name):
             Businesses=Business.get_all_businesses()
             print(Businesses)
             if not Businesses:
-                message="No business to display.Add a business"
-                response=jsonify({"message":"business does not exist","status":200})
-                response.status_code=200
+                
+                response=jsonify({"message":"business does not exist","status":400})
+                response.status_code=400
                 return response
             
             
@@ -259,9 +259,6 @@ def create_app(config_name):
         
         business_found= Business.find_business_id(id)
 
-        if not business_found:
-            response=jsonify({"message":"business does not exist","status":404})
-
         if request.method == "GET":
             if business_found:     
                 response=jsonify({"business":business_found})
@@ -272,7 +269,7 @@ def create_app(config_name):
                 response=jsonify({"message":"business does not exist","status":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
 
 
         elif request.method == "PUT":
@@ -296,7 +293,7 @@ def create_app(config_name):
                 response=jsonify({"message":"Cannot update business that does not exist","status":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
 
 
         else:
@@ -311,7 +308,7 @@ def create_app(config_name):
                 response=jsonify({"message":"Cannot delete business that does not exist","status":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
 
 
 
@@ -326,7 +323,7 @@ def create_app(config_name):
             response=jsonify({"message":"business does not exist","status":404})
             response.status_code=404
             return response
-            return response.status_code
+        
 
 
         if request.method == "GET":
@@ -339,7 +336,7 @@ def create_app(config_name):
                 response=jsonify({"message":"business does not exist","status":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
 
 
         elif request.method == 'PUT':
@@ -363,7 +360,7 @@ def create_app(config_name):
                 response=jsonify({"message":"Cannot update business that does not exist","status":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
 
 
         else:
@@ -378,7 +375,7 @@ def create_app(config_name):
                 response=jsonify({"message":"Cannot delete business that does not exist","status":404})
                 response.status_code=404
                 return response
-                return response.status_code
+                
     
 
 
@@ -401,7 +398,7 @@ def create_app(config_name):
             response=jsonify({"message":"enter all details","status_code":400})
             response.status_code=400
             return response
-            return response.status_code
+            
 
 
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['GET'])
