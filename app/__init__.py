@@ -296,9 +296,7 @@ def create_app(config_name):
                 response=jsonify({"message":"Cannot update business that does not exist","status":404})
                 response.status_code=404
                 return response
-                
-
-
+    
         else:
             if business_found:
 
