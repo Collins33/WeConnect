@@ -132,9 +132,7 @@ class BusinessTestCase(unittest.TestCase):
 
 
     def test_api_cannot_create_business_name_exist(self):
-        result=self.client().post(BusinessTestCase.business_url, data=self.business)
-        self.assertEqual(result.status_code,201)
-
+        self.addBusiness()
         res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
         self.assertEqual(res.status_code,400)
 
