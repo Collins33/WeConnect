@@ -86,7 +86,7 @@ class BusinessTestCase(unittest.TestCase):
         #this edits the current business
         put_request=self.client().put(BusinessTestCase.business_id_url.format(result_in_json['id']), data={"name":"tropics","description":"Business that sells tropical guns","location":"Thika","contact":"071234445"})
 
-        self.assertEqual(put_request.status_code,200)
+        self.assertIn("Business that sells tropical guns",str(put_request.data))
 
     def test_api_deletes_business(self):
         #test if api can delete a business
@@ -112,9 +112,7 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,400)
 
     def test_api_cannot_get_nonexistent_by_id(self):
-        res=self.client().post(BusinessTestCase.business_url, data=self.business)
-        self.assertEqual(res.status,'201 CREATED' )
-
+        self.addBusiness()
         result=self.client().get('/api/v1/businesses/10')
         self.assertEqual(result.status_code,404)
 
