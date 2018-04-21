@@ -107,23 +107,33 @@ def create_app(config_name):
 
 
 
-    @app.route('/api/v1/auth/login', methods=['POST'])
+    @app.route('/api/v1/auth/login', methods=['POST','GET'])
     def login():
         """this end point will log in a user based on username and password"""
-        username = str(request.data.get('username', ''))
-        password=str(request.data.get('password', ''))
 
-        if username and password:
-            session["username"]=username
-            message=User.login(username,password)
-            response=jsonify({"message":message,"status_code":200})
+        if request.method == 'GET':
+            message="method not allowed when loging in user.Use post"
+            response=jsonify({"message":message,"status_code":405})
+            response.status_code=405
             return response
-            
+
 
         else:
-            response=jsonify({"message":"enter all details","status_code":400})
-            response.status_code=400
-            return response
+
+            username = str(request.data.get('username', ''))
+            password=str(request.data.get('password', ''))
+
+            if username and password:
+                session["username"]=username
+                message=User.login(username,password)
+                response=jsonify({"message":message,"status_code":200})
+                return response
+                
+
+            else:
+                response=jsonify({"message":"enter all details","status_code":400})
+                response.status_code=400
+                return response
             
 
 
