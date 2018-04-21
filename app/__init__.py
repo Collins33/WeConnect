@@ -116,8 +116,6 @@ def create_app(config_name):
             response=jsonify({"message":message,"status_code":405})
             response.status_code=405
             return response
-
-
         else:
 
             username = str(request.data.get('username', ''))
@@ -134,19 +132,22 @@ def create_app(config_name):
                 response=jsonify({"message":"enter all details","status_code":400})
                 response.status_code=400
                 return response
-            
 
-
-
-    @app.route('/api/v1/auth/logout', methods=["POST"])
+    @app.route('/api/v1/auth/logout', methods=["POST","GET"])
     def logout():
         """this endpoint will logout the user
         by removing them from the session"""
-
-        if session.get("username") is not None:
-            session.pop("username", None)
-            return jsonify({"message": "Logout successful"})
-        return jsonify({"message": "You are not logged in"})
+        
+        if request.method == "GET":
+            message="method not allowed when loging out user.Use post"
+            response=jsonify({"message":message,"status_code":405})
+            response.status_code=405
+            return response
+        else:
+            if session.get("username") is not None:
+                session.pop("username", None)
+                return jsonify({"message": "Logout successful"})
+            return jsonify({"message": "You are not logged in"})
 
 
     @app.route('/api/v1/auth/reset-password', methods=['POST'])
