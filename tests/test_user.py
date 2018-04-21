@@ -143,6 +143,12 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(result.status_code,405)
         self.assertIn("method not allowed when loging in user.Use post",str(result.data))
 
+    def test_api_response_wrong_method_logout(self):
+        """this will test the response for wrong http method when logging out"""
+        result=self.client().get('/api/v1/auth/logout')
+        self.assertIn("method not allowed when loging out user.Use post",str(result.data))
+        self.assertEqual(result.status_code,405)   
+
 
 
     def tearDown(self):
