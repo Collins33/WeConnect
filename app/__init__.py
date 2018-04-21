@@ -32,7 +32,7 @@ def create_app(config_name):
         This end point will register a user by getting info from the request
         """
         if request.method == 'GET':
-            message="method not allowed"
+            message="method not allowed when registering user.Use post"
             response=jsonify({"message":message,"status_code":405})
             response.status_code=405
             return response
@@ -88,10 +88,6 @@ def create_app(config_name):
                     response.status_code=400    
                     return response
                     
-
-
-
-
 
                 else:
                     user=User(username=username,email=email,password=password,confirm_password=confirm_password)
