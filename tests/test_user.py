@@ -129,7 +129,26 @@ class UserTestCase(unittest.TestCase):
         """this will test if user with empty password
         can register""" 
         result=self.client().post(UserTestCase.user_register,data={"username":"collins","email":"collinsnjau@gmail.com","password":"       ","confirm_password":"       "})
-        self.assertEqual(result.status_code,400)   
+        self.assertEqual(result.status_code,400)
+
+    def test_api_response_wrong_method_register(self):
+        """this will test the response for a wrong http method"""
+        result=self.client().get(UserTestCase.user_register)
+        self.assertEqual(result.status_code,405)
+        self.assertIn("method not allowed when registering user.Use post",str(result.data))
+
+    def test_api_response_wrong_method_login(self):
+        """this will test the response for wrong http method when loging in"""
+        result=self.client().get(UserTestCase.user_login)
+        self.assertEqual(result.status_code,405)
+        self.assertIn("method not allowed when loging in user.Use post",str(result.data))
+
+    def test_api_response_wrong_method_logout(self):
+        """this will test the response for wrong http method when logging out"""
+        result=self.client().get('/api/v1/auth/logout')
+        self.assertIn("method not allowed when loging out user.Use post",str(result.data))
+        self.assertEqual(result.status_code,405)   
+
 
 
     def tearDown(self):
