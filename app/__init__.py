@@ -26,79 +26,87 @@ def create_app(config_name):
 
     """AUTHENTICATION"""
     #api functionality
-    @app.route('/api/v1/auth/register', methods=['POST'])
+    @app.route('/api/v1/auth/register', methods=['POST','GET'])
     def register():
         """ 
         This end point will register a user by getting info from the request
         """
-        username = str(request.data.get('username', ''))          
-        email=str(request.data.get('email', ''))
-        password=str(request.data.get('password', ''))
-        confirm_password=str(request.data.get('confirm_password', ''))
+        if request.method == 'GET':
+            message="method not allowed"
+            response=jsonify({"message":message,"status_code":405})
+            response.status_code=405
+            return response
 
-        if username and email and password and confirm_password:
-            value=User.check_email_exists(email)
-            value_name=User.check_name_exists(username)
-            validate_password=User.validate_password(password)
-            validate_email=User.validate_email(email)
-            validate_username=User.validate_username(username)
-            validate_password_format=User.validate_password_format(password)
 
-            if  value:
+        else:    
+            username = str(request.data.get('username', ''))          
+            email=str(request.data.get('email', ''))
+            password=str(request.data.get('password', ''))
+            confirm_password=str(request.data.get('confirm_password', ''))
 
-                response=jsonify({"message":"email already exists","status_code":400})
-                response.status_code=400    
-                return response
+            if username and email and password and confirm_password:
+                value=User.check_email_exists(email)
+                value_name=User.check_name_exists(username)
+                validate_password=User.validate_password(password)
+                validate_email=User.validate_email(email)
+                validate_username=User.validate_username(username)
+                validate_password_format=User.validate_password_format(password)
+
+                if  value:
+
+                    response=jsonify({"message":"email already exists","status_code":400})
+                    response.status_code=400    
+                    return response
+                    
+
+                elif value_name:
+                    response=jsonify({"message":"username already exists","status_code":400})
+                    response.status_code=400    
+                    return response
+                    
+
+                elif validate_password:
+                    response=jsonify({"message":"password must be longer than 6 characters","status_code":400})
+                    response.status_code=400    
+                    return response
+                    
+
+                elif validate_email:
+                    response=jsonify({"message":"Enter a valid email format","status_code":400})
+                    response.status_code=400    
+                    return response
+                    
+
+                elif validate_username:
+                    response=jsonify({"message":"Username must contain characters","status_code":400})
+                    response.status_code=400    
+                    return response
                 
 
-            elif value_name:
-                response=jsonify({"message":"username already exists","status_code":400})
-                response.status_code=400    
-                return response
-                
-
-            elif validate_password:
-                response=jsonify({"message":"password must be longer than 6 characters","status_code":400})
-                response.status_code=400    
-                return response
-                
-
-            elif validate_email:
-                response=jsonify({"message":"Enter a valid email format","status_code":400})
-                response.status_code=400    
-                return response
-                
-
-            elif validate_username:
-                response=jsonify({"message":"Username must contain characters","status_code":400})
-                response.status_code=400    
-                return response
-               
-
-            elif validate_password_format:
-                response=jsonify({"message":"Password cannot be empty","status_code":400})
-                response.status_code=400    
-                return response
-                
+                elif validate_password_format:
+                    response=jsonify({"message":"Password cannot be empty","status_code":400})
+                    response.status_code=400    
+                    return response
+                    
 
 
 
 
+
+                else:
+                    user=User(username=username,email=email,password=password,confirm_password=confirm_password)
+                    message=user.save_user(username,email,password,confirm_password)
+                    """turn message into json"""
+                    response=jsonify({"message":message,"status_code":201})
+                    """response.status_code=201"""
+                    
+                    return response
+                    
 
             else:
-                user=User(username=username,email=email,password=password,confirm_password=confirm_password)
-                message=user.save_user(username,email,password,confirm_password)
-                """turn message into json"""
-                response=jsonify({"message":message,"status_code":201})
-                """response.status_code=201"""
-                
+                response=jsonify({"message":"enter all details","status_code":400})
+                response.status_code=400
                 return response
-                
-
-        else:
-            response=jsonify({"message":"enter all details","status_code":400})
-            response.status_code=400
-            return response
             
 
 
