@@ -15,9 +15,7 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
     
-
-
-    
+ 
     @app.route("/")
     def welcome():
         message="Welcome to WeConnect-API"
@@ -105,8 +103,6 @@ def create_app(config_name):
                 return response
             
 
-
-
     @app.route('/api/v1/auth/login', methods=['POST','GET'])
     def login():
         """this end point will log in a user based on username and password"""
@@ -164,27 +160,22 @@ def create_app(config_name):
                 response.status_code=200
                 return response
                 
-
             elif response_message=="Password and confirm password must be the same":
                 response=jsonify({"message":"password and confirm must be the same","status_code":409})
                 response.status_code=409
                 return response
                 
-
-
             elif response_message ==  "Account does not exist":
                 response=jsonify({"message":"password and confirm must be the same","status_code":404})
                 response.status_code=404
                 return response
                 
 
-
         else:
             response=jsonify({"message":"enter all details","status_code":400})
             response.status_code=400
             return response
             
-
 
     """BUSINESS END POINTS"""
     @app.route('/api/v1/businesses', methods=['POST','GET'])
@@ -211,16 +202,13 @@ def create_app(config_name):
                     response=jsonify({"message":"Business contact already exists use different contact","status_code":400})
                     response.status_code=400  
                     return response
-                    
-
-                
+                                 
                 else:
                     """create business object"""
                     business=Business(name=name,description=description,location=location,contact=contact)
                     new_business=business.save_business(name,description,location,contact)                    
                     response=jsonify(new_business)
                     response.status_code=201
-
                     return response
 
             elif not name:
@@ -228,26 +216,21 @@ def create_app(config_name):
                 response.status_code=400
                 return response
                 
-
             elif not description:
                 response=jsonify({"message":"description missing","status_code":400})
                 response.status_code=400
                 return response
                 
-
             elif not location:
                 response=jsonify({"message":"business location is missing","status_code":400})
                 response.status_code=400
                 return response
                 
-
-
             else:
                 response=jsonify({"message":"business contact is missing","status_code":400})
                 response.status_code=400
                 return response
                 
-
 
         else:
             """if its a get request"""
@@ -256,7 +239,6 @@ def create_app(config_name):
             print(Businesses)
             if not Businesses:
                 
-
                 response=jsonify({"message":"business does not exist","status":200})
                 response.status_code=200
 
@@ -264,8 +246,7 @@ def create_app(config_name):
                 response.status_code=400
 
                 return response
-            
-            
+                        
             response=jsonify({"businesses":Businesses})
             response.status_code=200
             return response
@@ -314,12 +295,6 @@ def create_app(config_name):
                 response.status_code=404
                 return response
 
-    
-
-                
-
-
-
         else:
             if business_found:
 
@@ -334,8 +309,6 @@ def create_app(config_name):
                 return response
                 
 
-
-
     @app.route('/api/v1/businesses/<string:name>', methods=['GET','PUT'])
     def business_manipulation_by_name(name):
         """get the id from the route"""
@@ -348,12 +321,6 @@ def create_app(config_name):
             response.status_code=404
             return response
 
-            
-
-        
-
-
-
         if request.method == "GET":
             if business_found:     
                 response=jsonify({"Business":business_found})
@@ -365,7 +332,6 @@ def create_app(config_name):
                 response.status_code=404
                 return response
                 
-
 
         elif request.method == 'PUT':
             if business_found:
@@ -390,7 +356,6 @@ def create_app(config_name):
                 return response
                 
 
-
         else:
             if business_found:
 
@@ -404,8 +369,6 @@ def create_app(config_name):
                 response.status_code=404
                 return response
                 
-    
-
 
     """REVIEWS END POINTS"""
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['POST'])
@@ -427,14 +390,11 @@ def create_app(config_name):
             response.status_code=201
             return response
 
-
         else:
             response=jsonify({"message":"enter all details","status_code":400})
             response.status_code=400
             return response
             
-
-
     @app.route('/api/v1/businesses/<int:id>/reviews', methods=['GET'])
     def get_reviews(id):
         
@@ -445,7 +405,6 @@ def create_app(config_name):
             response=jsonify({"message":"cannot add review to business that does not exist","status_code":404})
             response.status_code=404
             return response
-
 
         response=jsonify({"reviews":reviews})
         response.status_code=201
