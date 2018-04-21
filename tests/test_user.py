@@ -129,7 +129,13 @@ class UserTestCase(unittest.TestCase):
         """this will test if user with empty password
         can register""" 
         result=self.client().post(UserTestCase.user_register,data={"username":"collins","email":"collinsnjau@gmail.com","password":"       ","confirm_password":"       "})
-        self.assertEqual(result.status_code,400)   
+        self.assertEqual(result.status_code,400)
+
+    def test_api_response_wrong_method(self):
+        """this will test the response for a wrong http method"""
+        result=self.client().get(UserTestCase.user_register)
+        self.assertEqual(result.status_code,405)
+        self.assertIn("method not allowed",str(result.data))       
 
 
     def tearDown(self):

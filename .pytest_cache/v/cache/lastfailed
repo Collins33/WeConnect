@@ -1,3 +1,4 @@
 {
-  "test_business_reviews.py::ReviewTestCase::test_api_cannot_create_empty_review": true
+  "test_business_reviews.py::ReviewTestCase::test_api_cannot_create_empty_review": true,
+  "tests/test_user.py::UserTestCase::test_api_response_wrong_method": true
 }
