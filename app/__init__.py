@@ -193,6 +193,8 @@ def create_app(config_name):
                 validateName=Business.check_name_exists(name)
                 validateContact=Business.check_contact_exists(contact)
                 validName=Business.validate_business_name(name)
+                validLocation=Business.validate_business_description(location)
+                validContact=Business.validate_business_contact(contact)
                 if validateName:
                     response=jsonify({"message":"Business name already exists","status_code":400})
                     response.status_code=400    
@@ -207,7 +209,17 @@ def create_app(config_name):
                     response=jsonify({"message":"Enter  business name","status_code":400})
                     response.status_code=400  
                     return response
-                                 
+
+                elif validLocation:
+                    response=jsonify({"message":"Enter business location","status_code":400})
+                    response.status_code=400  
+                    return response
+
+                elif validContact:
+                    response=jsonify({"message":"Enter business contact","status_code":400})
+                    response.status_code=400  
+                    return response
+                       
                 else:
                     """create business object"""
                     business=Business(name=name,description=description,location=location,contact=contact)

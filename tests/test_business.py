@@ -193,11 +193,6 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,400)
         self.assertIn("Enter  business name",str(res.data))
 
-    def test_api_cannot_register_business_empty_description(self):
-        res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"  ","location":"nairobi","contact":"071234446"})
-        self.assertEqual(res.status_code,400)
-        self.assertIn("Enter business description",str(res.data)) 
-
     def test_api_cannot_register_business_empty_location(self):
         res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"  ","contact":"071234446"})
         self.assertEqual(res.status_code,400)
@@ -209,7 +204,6 @@ class BusinessTestCase(unittest.TestCase):
         self.assertIn("Enter business contact",str(res.data))                 
 
         
-
     def tearDown(self):
         #runs after every test
         #makes the business_list empty
