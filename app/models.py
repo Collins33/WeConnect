@@ -49,7 +49,7 @@ class Business(object):
     @classmethod
     def check_name_exists(cls,name):
         for business in cls.business_list:
-            if business.get("name") == name:
+            if business.get("name") == name or business.get("name") == name.lower():
                 return True
             return False
 
