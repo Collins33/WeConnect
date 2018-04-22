@@ -24,14 +24,11 @@ class BusinessTestCase(unittest.TestCase):
         self.business_location_missing={"name":"tropics","description":"Business that sells tropical drinks","location":"","contact":"071234445"}
         self.business_contact_missing={"name":"tropics","description":"Business that sells tropical drinks","location":"nairobi","contact":""}
 
-        
-    
-    
+            
     def addBusiness(self):
         """this method adds a business to the datastructure"""
         return self.client().post(BusinessTestCase.business_url, data=self.business)
        
-
 
     def test_business_creation(self):
         #test if the api can create a business 
@@ -201,17 +198,13 @@ class BusinessTestCase(unittest.TestCase):
     def test_api_cannot_register_business_empty_contact(self):
         res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"  "})
         self.assertEqual(res.status_code,400)
-        self.assertIn("Enter business contact",str(res.data))                 
-
-        
+        self.assertIn("Enter business contact",str(res.data))
+       
     def tearDown(self):
         #runs after every test
         #makes the business_list empty
         Business.business_list=[]    
             
-
-
-
 
 if __name__ == "__main__":
     unittest.main()          
