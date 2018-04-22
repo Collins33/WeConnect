@@ -179,6 +179,13 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,400)
         self.assertIn('business contact is missing',str(res.data))
 
+
+    def test_api_cannot_register_duplicate_name(self):
+        self.addBusiness()
+        res=self.client().post(BusinessTestCase.business_url, data={"name":"Tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
+        self.assertEqual(res.status_code,400)
+
+
     def tearDown(self):
         #runs after every test
         #makes the business_list empty
