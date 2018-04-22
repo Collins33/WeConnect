@@ -197,7 +197,6 @@ def create_app(config_name):
                     response.status_code=400    
                     return response
                     
-
                 elif validateContact:
                     response=jsonify({"message":"Business contact already exists use different contact","status_code":400})
                     response.status_code=400  

@@ -184,7 +184,10 @@ class BusinessTestCase(unittest.TestCase):
         self.addBusiness()
         res=self.client().post(BusinessTestCase.business_url, data={"name":"Tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
         self.assertEqual(res.status_code,400)
+        self.assertIn("Business name already exists",str(res.data))
 
+        result=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
+        self.assertIn("Business name already exists",str(result.data))
 
     def tearDown(self):
         #runs after every test
