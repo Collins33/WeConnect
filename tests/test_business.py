@@ -179,7 +179,6 @@ class BusinessTestCase(unittest.TestCase):
         self.assertEqual(res.status_code,400)
         self.assertIn('business contact is missing',str(res.data))
 
-
     def test_api_cannot_register_duplicate_name(self):
         self.addBusiness()
         res=self.client().post(BusinessTestCase.business_url, data={"name":"Tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
@@ -188,6 +187,13 @@ class BusinessTestCase(unittest.TestCase):
 
         result=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
         self.assertIn("Business name already exists",str(result.data))
+
+    def test_api_cannot_register_business_empty_strings(self):
+        res=self.client().post(BusinessTestCase.business_url, data={"name":"  ","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
+        self.assertEqual(res.status_code,400)
+        self.assertIn("Enter all business details",str(res.data))    
+
+        
 
     def tearDown(self):
         #runs after every test
