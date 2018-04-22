@@ -53,7 +53,6 @@ class Business(object):
                 return True
             return False
 
-
     @classmethod
     def check_contact_exists(cls,contact):
         for business in cls.business_list:
@@ -61,16 +60,40 @@ class Business(object):
                 return True
             return False
 
-
     @classmethod
     def find_business_name(cls,name):
         """will return business that matches the name"""
         business=[business for business in cls.business_list if business['name'] == name]
         print (business)
-        return business            
-      
-      
-      
+        return business
+
+    @staticmethod
+    def validate_business_name(name):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]*$",name):
+            return True
+        return False
+
+    @staticmethod
+    def validate_business_description(description):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]*$",description):
+            return True
+        return False
+
+    @staticmethod
+    def validate_business_location(location):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]*$",location):
+            return True
+        return False
+
+    @staticmethod
+    def validate_business_contact(contact):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]*$",contact):
+            return True
+        return False    
+
+
+
+"""User creation model"""
 class User(object):
     """
     class to create a user
