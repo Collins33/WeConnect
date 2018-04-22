@@ -188,10 +188,25 @@ class BusinessTestCase(unittest.TestCase):
         result=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
         self.assertIn("Business name already exists",str(result.data))
 
-    def test_api_cannot_register_business_empty_strings(self):
+    def test_api_cannot_register_business_empty_name(self):
         res=self.client().post(BusinessTestCase.business_url, data={"name":"  ","description":"Business that sells drinks","location":"nairobi","contact":"071234446"})
         self.assertEqual(res.status_code,400)
-        self.assertIn("Enter all business details",str(res.data))    
+        self.assertIn("Enter  business name",str(res.data))
+
+    def test_api_cannot_register_business_empty_description(self):
+        res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"  ","location":"nairobi","contact":"071234446"})
+        self.assertEqual(res.status_code,400)
+        self.assertIn("Enter business description",str(res.data)) 
+
+    def test_api_cannot_register_business_empty_location(self):
+        res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"  ","contact":"071234446"})
+        self.assertEqual(res.status_code,400)
+        self.assertIn("Enter business location",str(res.data)) 
+
+    def test_api_cannot_register_business_empty_contact(self):
+        res=self.client().post(BusinessTestCase.business_url, data={"name":"tropics","description":"Business that sells drinks","location":"nairobi","contact":"  "})
+        self.assertEqual(res.status_code,400)
+        self.assertIn("Enter business contact",str(res.data))                 
 
         
 
