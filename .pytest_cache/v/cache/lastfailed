@@ -3,6 +3,5 @@
   "tests/test_business.py::BusinessTestCase::test_api_cannot_register_business_empty_contact": true,
   "tests/test_business.py::BusinessTestCase::test_api_cannot_register_business_empty_description": true,
   "tests/test_business.py::BusinessTestCase::test_api_cannot_register_business_empty_location": true,
-  "tests/test_business.py::BusinessTestCase::test_api_cannot_register_business_empty_name": true,
   "tests/test_business.py::BusinessTestCase::test_api_cannot_register_business_empty_strings": true
 }
